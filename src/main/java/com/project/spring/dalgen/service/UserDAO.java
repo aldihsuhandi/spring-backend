@@ -6,4 +6,10 @@ import com.project.spring.dalgen.model.response.UserDO;
 
 public interface UserDAO {
     UserDO createUser(UserDAORequest request) throws SpringException;
+
+    UserDO queryByUserId(UserDAORequest request);
+
+    UserDO queryByUsername(UserDAORequest request);
+
+    UserDO queryByEmail(UserDAORequest request);
 }

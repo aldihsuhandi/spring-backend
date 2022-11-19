@@ -1,6 +1,8 @@
 package com.project.spring.common.converter;
 
 import com.project.spring.common.model.viewobject.UserVO;
+import com.project.spring.core.model.result.UserCreateResult;
+import com.project.spring.core.model.result.UserQueryResult;
 import com.project.spring.dalgen.model.response.UserDO;
 
 public class UserVOConverter {
@@ -18,5 +20,20 @@ public class UserVOConverter {
         userVO.setProfilePicture(userDO.getProfilePicture());
 
         return userVO;
+    }
+
+    public static void toResult(UserVO userVO, UserCreateResult result) {
+        result.setUserId(userVO.getUserId());
+    }
+
+    public static void toResult(UserVO userVO, UserQueryResult result) {
+        result.setUserId(userVO.getUserId());
+        result.setEmail(userVO.getEmail());
+        result.setUsername(userVO.getUsername());
+        result.setBanner(userVO.getBanner());
+        result.setProfilePicture(userVO.getProfilePicture());
+        result.setStatus(userVO.getStatus());
+        result.setGmtCreate(userVO.getGmtCreate());
+        result.setGmtModified(userVO.getGmtModified());
     }
 }

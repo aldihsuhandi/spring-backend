@@ -16,4 +16,10 @@ public class AssertUtil {
         }
     }
 
+    public static void isNotNull(Object o, String param, SpringErrorCodeEnum errorCode) throws SpringException {
+        if (o == null) {
+            throw new SpringException(String.format("%s value is null", param), errorCode);
+        }
+    }
+
 }

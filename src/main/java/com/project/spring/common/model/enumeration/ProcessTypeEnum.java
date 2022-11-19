@@ -4,7 +4,9 @@ import lombok.Getter;
 
 @Getter
 public enum ProcessTypeEnum {
-    USER_CREATE("USER_CREATE", "7100001", "userCreateProcessor", "userCreateValidator");
+    USER_CREATE("USER_CREATE", "7100001", "userCreateProcessor", "userCreateValidator"),
+
+    USER_QUERY("USER_QUERY", "7100002", "userQueryProcessor", "userQueryValidator");
 
     private final String processName;
     private final String processId;

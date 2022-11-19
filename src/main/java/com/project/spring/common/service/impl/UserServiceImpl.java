@@ -1,10 +1,13 @@
 package com.project.spring.common.service.impl;
 
 import com.project.spring.common.converter.UserVOConverter;
+import com.project.spring.common.model.enumeration.SpringErrorCodeEnum;
 import com.project.spring.common.model.exception.SpringException;
 import com.project.spring.common.model.request.UserCreateInnerRequest;
+import com.project.spring.common.model.request.UserQueryInnerRequest;
 import com.project.spring.common.model.viewobject.UserVO;
 import com.project.spring.common.service.UserService;
+import com.project.spring.common.util.AssertUtil;
 import com.project.spring.dalgen.converter.UserDaoRequestConverter;
 import com.project.spring.dalgen.model.request.UserDAORequest;
 import com.project.spring.dalgen.model.response.UserDO;
@@ -34,6 +37,36 @@ public class UserServiceImpl implements UserService {
         daoRequest.setUserId(generateUserId());
 
         UserDO userDO = userDAO.createUser(daoRequest);
+        return UserVOConverter.toViewObject(userDO);
+    }
+
+    @Override
+    public UserVO queryById(UserQueryInnerRequest request) throws SpringException {
+        UserDAORequest daoRequest = UserDaoRequestConverter.toDAORequest(request);
+
+        UserDO userDO = userDAO.queryByUserId(daoRequest);
+        AssertUtil.isNotNull(userDO, "user", SpringErrorCodeEnum.USER_NOT_FOUND);
+
+        return UserVOConverter.toViewObject(userDO);
+    }
+
+    @Override
+    public UserVO queryByUsername(UserQueryInnerRequest request) throws SpringException {
+        UserDAORequest daoRequest = UserDaoRequestConverter.toDAORequest(request);
+
+        UserDO userDO = userDAO.queryByUsername(daoRequest);
+        AssertUtil.isNotNull(userDO, "user", SpringErrorCodeEnum.USER_NOT_FOUND);
+
+        return UserVOConverter.toViewObject(userDO);
+    }
+
+    @Override
+    public UserVO queryByEmail(UserQueryInnerRequest request) throws SpringException {
+        UserDAORequest daoRequest = UserDaoRequestConverter.toDAORequest(request);
+
+        UserDO userDO = userDAO.queryByEmail(daoRequest);
+        AssertUtil.isNotNull(userDO, "user", SpringErrorCodeEnum.USER_NOT_FOUND);
+
         return UserVOConverter.toViewObject(userDO);
     }
 

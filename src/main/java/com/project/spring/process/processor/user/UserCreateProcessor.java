@@ -9,7 +9,7 @@ import com.project.spring.core.converter.UserRequestConverter;
 import com.project.spring.core.model.request.BaseRequest;
 import com.project.spring.core.model.request.user.UserCreateRequest;
 import com.project.spring.core.model.result.BaseResult;
-import com.project.spring.core.model.result.UserCreateResult;
+import com.project.spring.core.model.result.user.UserCreateResult;
 import com.project.spring.process.processor.BaseProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

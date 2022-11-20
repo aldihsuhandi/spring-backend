@@ -9,6 +9,7 @@
     <bean id="userQueryProcessor" class="com.project.spring.process.processor.user.UserQueryProcessor"/>
     <bean id="userUpdateProcessor" class="com.project.spring.process.processor.user.UserUpdateProcessor"/>
     <bean id="userDeleteProcessor" class="com.project.spring.process.processor.user.UserDeleteProcessor"/>
+    <bean id="sessionLoginProcessor" class="com.project.spring.process.processor.session.SessionLoginProcessor"/>
 
 
     <!--validator-->
@@ -16,6 +17,7 @@
     <bean id="userQueryValidator" class="com.project.spring.common.validator.impl.user.UserQueryValidator"/>
     <bean id="userUpdateValidator" class="com.project.spring.common.validator.impl.user.UserUpdateValidator"/>
     <bean id="userDeleteValidator" class="com.project.spring.common.validator.impl.user.UserDeleteValidator"/>
+    <bean id="sessionLoginValidator" class="com.project.spring.common.validator.impl.session.SessionLoginValidator"/>
 
     <bean id="facadeProcess" class="com.project.spring.process.callback.ProcessFacade">
         <property name="processors">

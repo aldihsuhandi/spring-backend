@@ -45,7 +45,8 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public UserDO queryByUserId(UserDAORequest request) {
         String statement = "SELECT * FROM users WHERE user_id = ?";
-        List<UserDO> userDOS = jdbcTemplate.query(statement, ps -> ps.setString(1, request.getUserId()), new UserDORowMapper());
+        List<UserDO> userDOS = jdbcTemplate.query(statement, ps -> ps.
+                setString(1, request.getUserId()), new UserDORowMapper());
         if (userDOS == null || userDOS.isEmpty()) {
             return null;
         }

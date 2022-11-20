@@ -1,12 +1,12 @@
 package com.project.spring.core.converter;
 
+import com.project.spring.common.constant.CommonConst;
 import com.project.spring.common.model.context.UserUpdateContext;
 import com.project.spring.common.model.request.user.UserCreateInnerRequest;
 import com.project.spring.common.model.request.user.UserDeleteInnerRequest;
 import com.project.spring.common.model.request.user.UserQueryInnerRequest;
 import com.project.spring.common.model.request.user.UserUpdateInnerRequest;
 import com.project.spring.common.model.viewobject.UserVO;
-import com.project.spring.common.util.Const;
 import com.project.spring.common.util.StringUtil;
 import com.project.spring.core.model.request.user.UserCreateRequest;
 import com.project.spring.core.model.request.user.UserDeleteRequest;
@@ -38,15 +38,15 @@ public class UserRequestConverter {
     public static UserQueryInnerRequest toInnerRequest(String value, String key) {
         UserQueryInnerRequest request = new UserQueryInnerRequest();
         switch (key) {
-            case Const.EMAIL:
+            case CommonConst.EMAIL:
                 request.setEmail(value);
                 break;
 
-            case Const.USER_ID:
+            case CommonConst.USER_ID:
                 request.setUserId(value);
                 break;
 
-            case Const.USERNAME:
+            case CommonConst.USERNAME:
                 request.setUsername(value);
                 break;
         }

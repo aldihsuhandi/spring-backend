@@ -2,13 +2,13 @@ package com.project.spring.process.processor.user;
 
 import com.project.spring.common.converter.UserVOConverter;
 import com.project.spring.common.model.exception.SpringException;
-import com.project.spring.common.model.request.UserQueryInnerRequest;
+import com.project.spring.common.model.request.user.UserQueryInnerRequest;
 import com.project.spring.common.model.viewobject.UserVO;
 import com.project.spring.common.service.UserService;
 import com.project.spring.common.util.StringUtil;
 import com.project.spring.core.converter.UserRequestConverter;
 import com.project.spring.core.model.request.BaseRequest;
-import com.project.spring.core.model.request.UserQueryRequest;
+import com.project.spring.core.model.request.user.UserQueryRequest;
 import com.project.spring.core.model.result.BaseResult;
 import com.project.spring.core.model.result.UserQueryResult;
 import com.project.spring.process.processor.BaseProcessor;

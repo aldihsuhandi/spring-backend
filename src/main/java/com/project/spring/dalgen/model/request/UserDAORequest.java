@@ -22,4 +22,5 @@ public class UserDAORequest implements Serializable {
     private String status;
     private Date gmtCreate;
     private Date gmtModified;
+    private boolean isActive;
 }

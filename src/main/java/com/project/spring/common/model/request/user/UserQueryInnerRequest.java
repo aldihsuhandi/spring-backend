@@ -1,4 +1,4 @@
-package com.project.spring.common.model.request;
+package com.project.spring.common.model.request.user;
 
 import lombok.Getter;
 import lombok.Setter;

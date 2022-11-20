@@ -1,5 +1,6 @@
-package com.project.spring.core.model.request;
+package com.project.spring.core.model.request.user;
 
+import com.project.spring.core.model.request.BaseRequest;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

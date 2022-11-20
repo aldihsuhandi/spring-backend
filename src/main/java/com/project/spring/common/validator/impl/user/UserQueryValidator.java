@@ -1,11 +1,11 @@
-package com.project.spring.common.validator.impl;
+package com.project.spring.common.validator.impl.user;
 
 import com.project.spring.common.model.enumeration.SpringErrorCodeEnum;
 import com.project.spring.common.util.ParamChecker;
 import com.project.spring.common.util.StringUtil;
 import com.project.spring.common.validator.BaseValidator;
 import com.project.spring.core.model.request.BaseRequest;
-import com.project.spring.core.model.request.UserQueryRequest;
+import com.project.spring.core.model.request.user.UserQueryRequest;
 
 public class UserQueryValidator implements BaseValidator {
     @Override

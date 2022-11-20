@@ -15,6 +15,7 @@ public class UserVO {
     private String profilePicture;
     private String banner;
     private String status;
+    private boolean isActive;
     private Date gmtCreate;
     private Date gmtModified;
 }

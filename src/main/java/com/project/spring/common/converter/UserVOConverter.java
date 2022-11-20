@@ -15,9 +15,10 @@ public class UserVOConverter {
         userVO.setStatus(userDO.getStatus());
         userVO.setPassword(userDO.getPassword());
         userVO.setUsername(userDO.getUsername());
+        userVO.setActive(userDO.isActive());
+        userVO.setProfilePicture(userDO.getProfilePicture());
         userVO.setGmtCreate(userDO.getGmtCreate());
         userVO.setGmtModified(userDO.getGmtModified());
-        userVO.setProfilePicture(userDO.getProfilePicture());
 
         return userVO;
     }
@@ -33,6 +34,7 @@ public class UserVOConverter {
         result.setBanner(userVO.getBanner());
         result.setProfilePicture(userVO.getProfilePicture());
         result.setStatus(userVO.getStatus());
+        result.setActive(userVO.isActive());
         result.setGmtCreate(userVO.getGmtCreate());
         result.setGmtModified(userVO.getGmtModified());
     }

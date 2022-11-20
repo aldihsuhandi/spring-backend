@@ -8,12 +8,14 @@
     <bean id="userCreateProcessor" class="com.project.spring.process.processor.user.UserCreateProcessor"/>
     <bean id="userQueryProcessor" class="com.project.spring.process.processor.user.UserQueryProcessor"/>
     <bean id="userUpdateProcessor" class="com.project.spring.process.processor.user.UserUpdateProcessor"/>
+    <bean id="userDeleteProcessor" class="com.project.spring.process.processor.user.UserDeleteProcessor"/>
 
 
     <!--validator-->
-    <bean id="userCreateValidator" class="com.project.spring.common.validator.impl.UserCreateValidator"/>
-    <bean id="userQueryValidator" class="com.project.spring.common.validator.impl.UserQueryValidator"/>
-    <bean id="userUpdateValidator" class="com.project.spring.common.validator.impl.UserUpdateValidator"/>
+    <bean id="userCreateValidator" class="com.project.spring.common.validator.impl.user.UserCreateValidator"/>
+    <bean id="userQueryValidator" class="com.project.spring.common.validator.impl.user.UserQueryValidator"/>
+    <bean id="userUpdateValidator" class="com.project.spring.common.validator.impl.user.UserUpdateValidator"/>
+    <bean id="userDeleteValidator" class="com.project.spring.common.validator.impl.user.UserDeleteValidator"/>
 
     <bean id="facadeProcess" class="com.project.spring.process.callback.ProcessFacade">
         <property name="processors">
@@ -26,6 +28,9 @@
                 </entry>
                 <entry key="USER_UPDATE">
                     <ref bean="userUpdateProcessor"/>
+                </entry>
+                <entry key="USER_DELETE">
+                    <ref bean="userDeleteProcessor"/>
                 </entry>
             </map>
         </property>
@@ -40,6 +45,9 @@
                 </entry>
                 <entry key="USER_UPDATE">
                     <ref bean="userUpdateValidator"/>
+                </entry>
+                <entry key="USER_DELETEA">
+                    <ref bean="userDeleteValidator"/>
                 </entry>
             </map>
         </property>

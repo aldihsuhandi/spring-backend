@@ -8,7 +8,9 @@ public enum ProcessTypeEnum {
 
     USER_QUERY("USER_QUERY", "7100002", "userQueryProcessor", "userQueryValidator"),
 
-    USER_UPDATE("USER_UPDATE", "7100002", "userUpdateProcessor", "userUpdateValidator");
+    USER_UPDATE("USER_UPDATE", "7100003", "userUpdateProcessor", "userUpdateValidator"),
+
+    USER_DELETE("USER_DELETE", "7100004", "userDeleteProcessor", "userDeleteValidator");
 
     private final String processName;
     private final String processId;

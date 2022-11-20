@@ -100,6 +100,23 @@ public class UserDAOImpl implements UserDAO {
         AssertUtil.isExpected(result, 1, "update result", SpringErrorCodeEnum.UPDATE_FAILED);
     }
 
+    @Override
+    public void delete(UserDAORequest request) throws SpringException {
+        String statement = "UPDATE users SET is_active=?, gmt_modified=? WHERE user_id=?";
+        int result = 0;
+        try {
+            result = jdbcTemplate.update(statement, ps -> {
+                ps.setBoolean(1, request.isActive());
+                ps.setDate(2, new Date(request.getGmtModified().getTime()));
+                ps.setString(3, request.getUserId());
+            });
+        } catch (Exception e) {
+            throw new SpringException(e.getCause().getMessage(), SpringErrorCodeEnum.UPDATE_FAILED);
+        }
+
+        AssertUtil.isExpected(result, 1, "update result", SpringErrorCodeEnum.UPDATE_FAILED);
+    }
+
     public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }

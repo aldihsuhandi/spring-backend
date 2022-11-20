@@ -1,8 +1,9 @@
 package com.project.spring.dalgen.converter;
 
-import com.project.spring.common.model.request.UserCreateInnerRequest;
-import com.project.spring.common.model.request.UserQueryInnerRequest;
-import com.project.spring.common.model.request.UserUpdateInnerRequest;
+import com.project.spring.common.model.request.user.UserCreateInnerRequest;
+import com.project.spring.common.model.request.user.UserDeleteInnerRequest;
+import com.project.spring.common.model.request.user.UserQueryInnerRequest;
+import com.project.spring.common.model.request.user.UserUpdateInnerRequest;
 import com.project.spring.dalgen.model.request.UserDAORequest;
 
 import java.util.Date;
@@ -42,7 +43,16 @@ public class UserDaoRequestConverter {
         req.setStatus(innerRequest.getStatus());
         req.setGmtModified(new Date());
 
-        System.out.printf("DEBUG[DAORequest=%s]\n", req.toString());
+        return req;
+    }
+
+    public static UserDAORequest toDAORequest(UserDeleteInnerRequest innerRequest) {
+        UserDAORequest req = new UserDAORequest();
+
+        req.setActive(innerRequest.isActive());
+        req.setUserId(innerRequest.getUserId());
+        req.setGmtModified(innerRequest.getGmtModified());
+
 
         return req;
     }

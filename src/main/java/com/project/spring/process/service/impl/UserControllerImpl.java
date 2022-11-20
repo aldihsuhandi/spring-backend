@@ -1,11 +1,13 @@
 package com.project.spring.process.service.impl;
 
 import com.project.spring.common.model.enumeration.ProcessTypeEnum;
-import com.project.spring.core.model.request.UserCreateRequest;
-import com.project.spring.core.model.request.UserQueryRequest;
-import com.project.spring.core.model.request.UserUpdateRequest;
+import com.project.spring.core.model.request.user.UserCreateRequest;
+import com.project.spring.core.model.request.user.UserDeleteRequest;
+import com.project.spring.core.model.request.user.UserQueryRequest;
+import com.project.spring.core.model.request.user.UserUpdateRequest;
 import com.project.spring.core.model.result.BaseResult;
 import com.project.spring.core.model.result.UserCreateResult;
+import com.project.spring.core.model.result.UserDeleteResult;
 import com.project.spring.core.model.result.UserQueryResult;
 import com.project.spring.core.model.result.UserUpdateResult;
 import com.project.spring.core.service.UserController;
@@ -24,7 +26,6 @@ public class UserControllerImpl extends ProcessFacade implements UserController 
     @Override
     @PostMapping("/create")
     public UserCreateResult create(@RequestBody UserCreateRequest request) {
-        System.out.println(request.toString());
         return (UserCreateResult) ProcessCallbackSupport.process(request, ProcessTypeEnum.USER_CREATE, new ProcessCallback() {
             @Override
             public BaseResult initResult() {
@@ -61,6 +62,22 @@ public class UserControllerImpl extends ProcessFacade implements UserController 
             @Override
             public BaseResult initResult() {
                 return new UserUpdateResult();
+            }
+
+            @Override
+            public void process(ProcessTypeEnum processType, BaseResult result) throws Exception {
+                doProcess(request, result, processType);
+            }
+        });
+    }
+
+    @Override
+    @PostMapping("/delete")
+    public UserDeleteResult delete(@RequestBody UserDeleteRequest request) {
+        return (UserDeleteResult) ProcessCallbackSupport.process(request, ProcessTypeEnum.USER_DELETE, new ProcessCallback() {
+            @Override
+            public BaseResult initResult() {
+                return new UserDeleteResult();
             }
 
             @Override

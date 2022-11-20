@@ -14,4 +14,6 @@ public interface UserDAO {
     UserDO queryByEmail(UserDAORequest request);
 
     void update(UserDAORequest request) throws SpringException;
+
+    void delete(UserDAORequest request) throws SpringException;
 }

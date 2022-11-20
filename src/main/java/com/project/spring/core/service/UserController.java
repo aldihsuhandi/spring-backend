@@ -1,9 +1,11 @@
 package com.project.spring.core.service;
 
-import com.project.spring.core.model.request.UserCreateRequest;
-import com.project.spring.core.model.request.UserQueryRequest;
-import com.project.spring.core.model.request.UserUpdateRequest;
+import com.project.spring.core.model.request.user.UserCreateRequest;
+import com.project.spring.core.model.request.user.UserDeleteRequest;
+import com.project.spring.core.model.request.user.UserQueryRequest;
+import com.project.spring.core.model.request.user.UserUpdateRequest;
 import com.project.spring.core.model.result.UserCreateResult;
+import com.project.spring.core.model.result.UserDeleteResult;
 import com.project.spring.core.model.result.UserQueryResult;
 import com.project.spring.core.model.result.UserUpdateResult;
 
@@ -13,4 +15,6 @@ public interface UserController {
     UserQueryResult query(UserQueryRequest request);
 
     UserUpdateResult update(UserUpdateRequest request);
+
+    UserDeleteResult delete(UserDeleteRequest request);
 }

@@ -1,5 +1,6 @@
 package com.project.spring.core.model.result;
 
+import com.project.spring.common.model.context.ResultContext;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -12,9 +13,6 @@ import java.io.Serializable;
 public class BaseResult implements Serializable {
 
     private static final long serialVersionUID = 6556129195307610223L;
-
-    private String resultMsg;
-    private String resultCode;
-    private Boolean success;
+    private ResultContext resultContext;
 
 }

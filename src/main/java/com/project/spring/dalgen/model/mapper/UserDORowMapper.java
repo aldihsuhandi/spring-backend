@@ -18,6 +18,7 @@ public class UserDORowMapper implements RowMapper<UserDO> {
         userDO.setBanner(rs.getString("banner"));
         userDO.setStatus(rs.getString("status"));
         userDO.setPassword(rs.getString("password"));
+        userDO.setActive(rs.getBoolean("is_active"));
         userDO.setGmtCreate(rs.getDate("gmt_create"));
         userDO.setGmtModified(rs.getDate("gmt_modified"));
 

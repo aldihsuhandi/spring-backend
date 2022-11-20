@@ -2,12 +2,14 @@ package com.project.spring.dalgen.model.request;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.io.Serializable;
 import java.util.Date;
 
 @Getter
 @Setter
+@ToString
 public class UserDAORequest implements Serializable {
     private static final long serialVersionUID = -5891443408696754985L;
 

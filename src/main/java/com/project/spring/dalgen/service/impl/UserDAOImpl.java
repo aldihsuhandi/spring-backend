@@ -1,5 +1,6 @@
 package com.project.spring.dalgen.service.impl;
 
+import com.project.spring.common.model.enumeration.SpringErrorCodeEnum;
 import com.project.spring.common.model.exception.SpringException;
 import com.project.spring.common.util.AssertUtil;
 import com.project.spring.dalgen.model.mapper.UserDORowMapper;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
 import java.util.List;
 
 @Service
@@ -23,11 +25,16 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public UserDO createUser(UserDAORequest request) throws SpringException {
         String statement = "INSERT INTO users(user_id, email, username, password, gmt_create, gmt_modified) VALUES(?, ?, ?, ?, ?, ?)";
-        int result = jdbcTemplate.update(statement,
-                request.getUserId(), request.getEmail(), request.getUsername(),
-                request.getPassword(), request.getGmtCreate(), request.getGmtModified());
+        int result = 0;
+        try {
+            result = jdbcTemplate.update(statement,
+                    request.getUserId(), request.getEmail(), request.getUsername(),
+                    request.getPassword(), request.getGmtCreate(), request.getGmtModified());
+        } catch (Exception e) {
+            throw new SpringException(e.getCause().getMessage(), SpringErrorCodeEnum.INSERT_FAILED);
+        }
 
-        AssertUtil.isNotExpected(result, 0, "update result");
+        AssertUtil.isNotExpected(result, 0, "update result", SpringErrorCodeEnum.INSERT_FAILED);
 
         UserDO userDO = new UserDO();
         userDO.setUserId(request.getUserId());
@@ -37,7 +44,7 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public UserDO queryByUserId(UserDAORequest request) {
-        String statement = "SELECT * FROM users WHERE userId = ?";
+        String statement = "SELECT * FROM users WHERE user_id = ?";
         List<UserDO> userDOS = jdbcTemplate.query(statement, ps -> ps.setString(1, request.getUserId()), new UserDORowMapper());
         if (userDOS == null || userDOS.isEmpty()) {
             return null;
@@ -68,6 +75,29 @@ public class UserDAOImpl implements UserDAO {
         }
 
         return userDOS.get(0);
+    }
+
+    @Override
+    public void update(UserDAORequest request) throws SpringException {
+        String statement = "UPDATE users SET email=?, username=?, password=?, profile_picture=?, banner=?, status=?, gmt_modified=? WHERE user_id=?";
+
+        int result = 0;
+        try {
+            result = jdbcTemplate.update(statement, ps -> {
+                ps.setString(1, request.getEmail());
+                ps.setString(2, request.getUsername());
+                ps.setString(3, request.getPassword());
+                ps.setString(4, request.getProfilePicture());
+                ps.setString(5, request.getBanner());
+                ps.setString(6, request.getStatus());
+                ps.setDate(7, new Date(request.getGmtModified().getTime()));
+                ps.setString(8, request.getUserId());
+            });
+        } catch (Exception e) {
+            throw new SpringException(e.getCause().getMessage(), SpringErrorCodeEnum.UPDATE_FAILED);
+        }
+
+        AssertUtil.isExpected(result, 1, "update result", SpringErrorCodeEnum.UPDATE_FAILED);
     }
 
     public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {

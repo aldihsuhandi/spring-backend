@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:util="http://www.springframework.org/schema/util"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-           http://www.springframework.org/schema/beans/spring-beans.xsd
-           http://www.springframework.org/schema/util
-   		   http://www.springframework.org/schema/util/spring-util.xsd">
+           http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <!--processor-->
     <bean id="userCreateProcessor" class="com.project.spring.process.processor.user.UserCreateProcessor"/>
     <bean id="userQueryProcessor" class="com.project.spring.process.processor.user.UserQueryProcessor"/>
+    <bean id="userUpdateProcessor" class="com.project.spring.process.processor.user.UserUpdateProcessor"/>
 
 
     <!--validator-->
     <bean id="userCreateValidator" class="com.project.spring.common.validator.impl.UserCreateValidator"/>
     <bean id="userQueryValidator" class="com.project.spring.common.validator.impl.UserQueryValidator"/>
+    <bean id="userUpdateValidator" class="com.project.spring.common.validator.impl.UserUpdateValidator"/>
 
     <bean id="facadeProcess" class="com.project.spring.process.callback.ProcessFacade">
         <property name="processors">
@@ -24,6 +23,9 @@
                 </entry>
                 <entry key="USER_QUERY">
                     <ref bean="userQueryProcessor"/>
+                </entry>
+                <entry key="USER_UPDATE">
+                    <ref bean="userUpdateProcessor"/>
                 </entry>
             </map>
         </property>
@@ -35,6 +37,9 @@
                 </entry>
                 <entry key="USER_QUERY">
                     <ref bean="userQueryValidator"/>
+                </entry>
+                <entry key="USER_UPDATE">
+                    <ref bean="userUpdateValidator"/>
                 </entry>
             </map>
         </property>

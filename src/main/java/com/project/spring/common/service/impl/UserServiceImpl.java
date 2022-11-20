@@ -5,6 +5,7 @@ import com.project.spring.common.model.enumeration.SpringErrorCodeEnum;
 import com.project.spring.common.model.exception.SpringException;
 import com.project.spring.common.model.request.UserCreateInnerRequest;
 import com.project.spring.common.model.request.UserQueryInnerRequest;
+import com.project.spring.common.model.request.UserUpdateInnerRequest;
 import com.project.spring.common.model.viewobject.UserVO;
 import com.project.spring.common.service.UserService;
 import com.project.spring.common.util.AssertUtil;
@@ -70,7 +71,13 @@ public class UserServiceImpl implements UserService {
         return UserVOConverter.toViewObject(userDO);
     }
 
-    private String encryptPassword(String password) {
+    @Override
+    public void update(UserUpdateInnerRequest request) throws SpringException {
+        UserDAORequest daoRequest = UserDaoRequestConverter.toDAORequest(request);
+        userDAO.update(daoRequest);
+    }
+
+    public String encryptPassword(String password) {
         return bCryptPasswordEncoder.encode(password);
     }
 

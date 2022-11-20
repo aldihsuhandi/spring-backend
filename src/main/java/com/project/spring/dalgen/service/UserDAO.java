@@ -12,4 +12,6 @@ public interface UserDAO {
     UserDO queryByUsername(UserDAORequest request);
 
     UserDO queryByEmail(UserDAORequest request);
+
+    void update(UserDAORequest request) throws SpringException;
 }

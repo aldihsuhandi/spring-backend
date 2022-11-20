@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--processor-->
+    <bean id="userCreateProcessor" class="com.project.spring.process.processor.user.UserCreateProcessor"/>
+    <bean id="userQueryProcessor" class="com.project.spring.process.processor.user.UserQueryProcessor"/>
+    <bean id="userUpdateProcessor" class="com.project.spring.process.processor.user.UserUpdateProcessor"/>
+    <bean id="userDeleteProcessor" class="com.project.spring.process.processor.user.UserDeleteProcessor"/>
+
+
+    <!--validator-->
+    <bean id="userCreateValidator" class="com.project.spring.common.validator.impl.user.UserCreateValidator"/>
+    <bean id="userQueryValidator" class="com.project.spring.common.validator.impl.user.UserQueryValidator"/>
+    <bean id="userUpdateValidator" class="com.project.spring.common.validator.impl.user.UserUpdateValidator"/>
+    <bean id="userDeleteValidator" class="com.project.spring.common.validator.impl.user.UserDeleteValidator"/>
+
+    <bean id="facadeProcess" class="com.project.spring.process.callback.ProcessFacade">
+        <property name="processors">
+            <map>
+                <entry key="USER_CREATE">
+                    <ref bean="userCreateProcessor"/>
+                </entry>
+                <entry key="USER_QUERY">
+                    <ref bean="userQueryProcessor"/>
+                </entry>
+                <entry key="USER_UPDATE">
+                    <ref bean="userUpdateProcessor"/>
+                </entry>
+                <entry key="USER_DELETE">
+                    <ref bean="userDeleteProcessor"/>
+                </entry>
+            </map>
+        </property>
+
+        <property name="validators">
+            <map>
+                <entry key="USER_CREATE">
+                    <ref bean="userCreateValidator"/>
+                </entry>
+                <entry key="USER_QUERY">
+                    <ref bean="userQueryValidator"/>
+                </entry>
+                <entry key="USER_UPDATE">
+                    <ref bean="userUpdateValidator"/>
+                </entry>
+                <entry key="USER_DELETEA">
+                    <ref bean="userDeleteValidator"/>
+                </entry>
+            </map>
+        </property>
+    </bean>
+</beans>
+
+
+

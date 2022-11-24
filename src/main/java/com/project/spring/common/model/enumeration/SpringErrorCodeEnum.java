@@ -8,8 +8,8 @@ public enum SpringErrorCodeEnum {
     INSERT_FAILED("INSERT_FAILED", "Failed to insert data to database", "16000002"),
     PARAM_ILLEGAL("PARAM_ILLEGAL", "param illegal", "16000003"),
     USER_NOT_FOUND("USER_NOT_FOUND", "user not found", "16000004"),
-
-    UPDATE_FAILED("UPDATE_FAILED", "failed when updating user", "16000005");
+    UPDATE_FAILED("UPDATE_FAILED", "failed when updating user", "16000005"),
+    SESSION_NOT_FOUND("SESSION_NOT_FOUND", "sesion not found", "16000006");
 
     private final String errorCode;
     private final String errorMsg;

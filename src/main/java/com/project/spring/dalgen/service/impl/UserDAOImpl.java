@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 @Service
@@ -91,7 +91,7 @@ public class UserDAOImpl implements UserDAO {
                 ps.setString(4, request.getProfilePicture());
                 ps.setString(5, request.getBanner());
                 ps.setString(6, request.getStatus());
-                ps.setDate(7, new Date(request.getGmtModified().getTime()));
+                ps.setTimestamp(7, new Timestamp(request.getGmtModified().getTime()));
                 ps.setString(8, request.getUserId());
             });
         } catch (Exception e) {
@@ -108,7 +108,7 @@ public class UserDAOImpl implements UserDAO {
         try {
             result = jdbcTemplate.update(statement, ps -> {
                 ps.setBoolean(1, request.isActive());
-                ps.setDate(2, new Date(request.getGmtModified().getTime()));
+                ps.setTimestamp(2, new Timestamp(request.getGmtModified().getTime()));
                 ps.setString(3, request.getUserId());
             });
         } catch (Exception e) {

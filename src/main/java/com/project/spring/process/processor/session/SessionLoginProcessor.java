@@ -40,6 +40,7 @@ public class SessionLoginProcessor implements BaseProcessor {
         sessionService.login(loginInnerRequest);
 
         SessionVO sessionVO = sessionService.query(SessionRequestConverter.toInnerRequest(uuid));
+        System.out.println("sessionVO: " + sessionVO.toString());
 
         composeResult(sessionLoginResult, sessionVO);
     }

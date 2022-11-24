@@ -2,8 +2,12 @@ package com.project.spring.process.service.impl;
 
 import com.project.spring.common.model.enumeration.ProcessTypeEnum;
 import com.project.spring.core.model.request.session.SessionLoginRequest;
+import com.project.spring.core.model.request.session.SessionLogoutRequest;
+import com.project.spring.core.model.request.session.SessionRefreshRequest;
 import com.project.spring.core.model.result.BaseResult;
 import com.project.spring.core.model.result.session.SessionLoginResult;
+import com.project.spring.core.model.result.session.SessionLogoutResult;
+import com.project.spring.core.model.result.session.SessionRefreshResult;
 import com.project.spring.core.service.SessionController;
 import com.project.spring.process.callback.ProcessCallback;
 import com.project.spring.process.callback.ProcessCallbackSupport;
@@ -23,6 +27,38 @@ public class SessionControllerImpl extends ProcessFacade implements SessionContr
             @Override
             public BaseResult initResult() {
                 return new SessionLoginResult();
+            }
+
+            @Override
+            public void process(ProcessTypeEnum processType, BaseResult result) throws Exception {
+                doProcess(request, result, processType);
+            }
+        });
+    }
+
+    @Override
+    @PostMapping("/logout")
+    public SessionLogoutResult logout(@RequestBody SessionLogoutRequest request) {
+        return (SessionLogoutResult) ProcessCallbackSupport.process(request, ProcessTypeEnum.USER_LOGOUT, new ProcessCallback() {
+            @Override
+            public BaseResult initResult() {
+                return new SessionLogoutResult();
+            }
+
+            @Override
+            public void process(ProcessTypeEnum processType, BaseResult result) throws Exception {
+                doProcess(request, result, processType);
+            }
+        });
+    }
+
+    @Override
+    @PostMapping("/refresh")
+    public SessionRefreshResult refresh(SessionRefreshRequest request) {
+        return (SessionRefreshResult) ProcessCallbackSupport.process(request, ProcessTypeEnum.SESSION_REFRESH, new ProcessCallback() {
+            @Override
+            public BaseResult initResult() {
+                return new SessionRefreshResult();
             }
 
             @Override

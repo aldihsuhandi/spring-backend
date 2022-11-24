@@ -1,11 +1,14 @@
 package com.project.spring.common.service.impl;
 
 import com.project.spring.common.converter.SessionVOConverter;
+import com.project.spring.common.model.enumeration.SpringErrorCodeEnum;
 import com.project.spring.common.model.exception.SpringException;
 import com.project.spring.common.model.request.session.SessionLoginInnerRequest;
+import com.project.spring.common.model.request.session.SessionLogoutInnerRequest;
 import com.project.spring.common.model.request.session.SessionQueryInnerRequest;
 import com.project.spring.common.model.viewobject.SessionVO;
 import com.project.spring.common.service.SessionService;
+import com.project.spring.common.util.AssertUtil;
 import com.project.spring.dalgen.converter.SessionDaoRequestConverter;
 import com.project.spring.dalgen.model.request.SessionDAORequest;
 import com.project.spring.dalgen.model.response.SessionDO;
@@ -34,8 +37,15 @@ public class SessionServiceImpl implements SessionService {
     public SessionVO query(SessionQueryInnerRequest request) throws SpringException {
         SessionDAORequest daoRequest = SessionDaoRequestConverter.toDAORequest(request);
         SessionDO sessionDO = sessionDAO.query(daoRequest);
+        AssertUtil.isNotNull(sessionDO, "session", SpringErrorCodeEnum.SESSION_NOT_FOUND);
 
         return SessionVOConverter.toResult(sessionDO);
+    }
+
+    @Override
+    public void logout(SessionLogoutInnerRequest request) throws SpringException {
+        SessionDAORequest daoRequest = SessionDaoRequestConverter.toDAORequest(request);
+        sessionDAO.logout(daoRequest);
     }
 
     @Override

@@ -12,7 +12,11 @@ public enum ProcessTypeEnum {
 
     USER_DELETE("USER_DELETE", "7100004", "userDeleteProcessor", "userDeleteValidator"),
 
-    USER_LOGIN("USER_LOGIN", "7100005", "sessionLoginProcessor", "sessionLoginValidator");
+    USER_LOGIN("USER_LOGIN", "7100005", "sessionLoginProcessor", "sessionLoginValidator"),
+
+    USER_LOGOUT("USER_LOGOUT", "7100005", "sessionLogoutProcessor", "sessionLogoutValidator"),
+
+    SESSION_REFRESH("SESSION_REFRESH", "7100006", "sessionRefreshProcessor", "sessionRefreshValidator");
 
     private final String processName;
     private final String processId;

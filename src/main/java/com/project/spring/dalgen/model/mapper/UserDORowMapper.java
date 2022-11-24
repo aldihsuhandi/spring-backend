@@ -20,8 +20,8 @@ public class UserDORowMapper implements RowMapper<UserDO> {
         userDO.setStatus(rs.getString(DatabaseConst.STATUS));
         userDO.setPassword(rs.getString(DatabaseConst.PASSWORD));
         userDO.setActive(rs.getBoolean(DatabaseConst.IS_ACTIVE));
-        userDO.setGmtCreate(rs.getDate(DatabaseConst.GMT_CREATE));
-        userDO.setGmtModified(rs.getDate(DatabaseConst.GMT_MODIFIED));
+        userDO.setGmtCreate(rs.getTimestamp(DatabaseConst.GMT_CREATE));
+        userDO.setGmtModified(rs.getTimestamp(DatabaseConst.GMT_MODIFIED));
 
         return userDO;
     }

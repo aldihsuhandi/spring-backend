@@ -10,6 +10,8 @@
     <bean id="userUpdateProcessor" class="com.project.spring.process.processor.user.UserUpdateProcessor"/>
     <bean id="userDeleteProcessor" class="com.project.spring.process.processor.user.UserDeleteProcessor"/>
     <bean id="sessionLoginProcessor" class="com.project.spring.process.processor.session.SessionLoginProcessor"/>
+    <bean id="sessionLogoutProcessor" class="com.project.spring.process.processor.session.SessionLogoutProcessor"/>
+    <bean id="sessionRefreshProcessor" class="com.project.spring.process.processor.session.SessionRefreshProcessor"/>
 
 
     <!--validator-->
@@ -18,6 +20,9 @@
     <bean id="userUpdateValidator" class="com.project.spring.common.validator.impl.user.UserUpdateValidator"/>
     <bean id="userDeleteValidator" class="com.project.spring.common.validator.impl.user.UserDeleteValidator"/>
     <bean id="sessionLoginValidator" class="com.project.spring.common.validator.impl.session.SessionLoginValidator"/>
+    <bean id="sessionLogoutValidator" class="com.project.spring.common.validator.impl.session.SessionLogoutValidator"/>
+    <bean id="sessionRefreshValidator"
+          class="com.project.spring.common.validator.impl.session.SessionRefreshValidator"/>
 
     <bean id="facadeProcess" class="com.project.spring.process.callback.ProcessFacade">
         <property name="processors">
@@ -34,6 +39,15 @@
                 <entry key="USER_DELETE">
                     <ref bean="userDeleteProcessor"/>
                 </entry>
+                <entry key="USER_LOGIN">
+                    <ref bean="sessionLoginProcessor"/>
+                </entry>
+                <entry key="USER_LOGOUT">
+                    <ref bean="sessionLogoutProcessor"/>
+                </entry>
+                <entry key="SESSION_REFRESH">
+                    <ref bean="sessionRefreshProcessor"/>
+                </entry>
             </map>
         </property>
 
@@ -48,8 +62,17 @@
                 <entry key="USER_UPDATE">
                     <ref bean="userUpdateValidator"/>
                 </entry>
-                <entry key="USER_DELETEA">
+                <entry key="USER_DELETE">
                     <ref bean="userDeleteValidator"/>
+                </entry>
+                <entry key="USER_LOGIN">
+                    <ref bean="sessionLoginValidator"/>
+                </entry>
+                <entry key="USER_LOGOUT">
+                    <ref bean="sessionLogoutValidator"/>
+                </entry>
+                <entry key="SESSION_REFRESH">
+                    <ref bean="sessionRefreshValidator"/>
                 </entry>
             </map>
         </property>

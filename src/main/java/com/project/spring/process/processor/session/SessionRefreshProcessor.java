@@ -22,5 +22,8 @@ public class SessionRefreshProcessor implements BaseProcessor {
         SessionRefreshRequest refreshRequest = (SessionRefreshRequest) request;
         SessionVO sessionVO = sessionService.query(SessionRequestConverter.
                 toInnerRequest(refreshRequest.getSessionId()));
+
+        sessionService.refresh(SessionRequestConverter.
+                toInnerRequest(refreshRequest));
     }
 }

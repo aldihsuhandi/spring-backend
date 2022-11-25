@@ -10,4 +10,6 @@ public interface SessionDAO {
     SessionDO query(SessionDAORequest request);
 
     void logout(SessionDAORequest request) throws SpringException;
+
+    void refresh(SessionDAORequest request) throws SpringException;
 }

@@ -3,6 +3,7 @@ package com.project.spring.dalgen.converter;
 import com.project.spring.common.model.request.session.SessionLoginInnerRequest;
 import com.project.spring.common.model.request.session.SessionLogoutInnerRequest;
 import com.project.spring.common.model.request.session.SessionQueryInnerRequest;
+import com.project.spring.common.model.request.session.SessionRefreshInnerRequest;
 import com.project.spring.dalgen.model.request.SessionDAORequest;
 
 public class SessionDaoRequestConverter {
@@ -27,6 +28,15 @@ public class SessionDaoRequestConverter {
         SessionDAORequest request = new SessionDAORequest();
         request.setSessionId(innerRequest.getSessionId());
         request.setGmtModified(innerRequest.getGmtModified());
+
+        return request;
+    }
+
+    public static SessionDAORequest toDAORequest(SessionRefreshInnerRequest innerRequest) {
+        SessionDAORequest request = new SessionDAORequest();
+        request.setSessionId(innerRequest.getSessionId());
+        request.setGmtModified(innerRequest.getGmtModified());
+        request.setSessionDt(innerRequest.getSessionDt());
 
         return request;
     }

@@ -4,6 +4,7 @@ import com.project.spring.common.model.exception.SpringException;
 import com.project.spring.common.model.request.session.SessionLoginInnerRequest;
 import com.project.spring.common.model.request.session.SessionLogoutInnerRequest;
 import com.project.spring.common.model.request.session.SessionQueryInnerRequest;
+import com.project.spring.common.model.request.session.SessionRefreshInnerRequest;
 import com.project.spring.common.model.viewobject.SessionVO;
 
 public interface SessionService {
@@ -12,6 +13,8 @@ public interface SessionService {
     SessionVO query(SessionQueryInnerRequest request) throws SpringException;
 
     void logout(SessionLogoutInnerRequest request) throws SpringException;
+
+    void refresh(SessionRefreshInnerRequest request) throws SpringException;
 
     String generateUUID();
 }

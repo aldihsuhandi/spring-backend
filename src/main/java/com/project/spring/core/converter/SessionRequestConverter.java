@@ -3,8 +3,10 @@ package com.project.spring.core.converter;
 import com.project.spring.common.model.request.session.SessionLoginInnerRequest;
 import com.project.spring.common.model.request.session.SessionLogoutInnerRequest;
 import com.project.spring.common.model.request.session.SessionQueryInnerRequest;
+import com.project.spring.common.model.request.session.SessionRefreshInnerRequest;
 import com.project.spring.common.model.viewobject.UserVO;
 import com.project.spring.core.model.request.session.SessionLogoutRequest;
+import com.project.spring.core.model.request.session.SessionRefreshRequest;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -35,6 +37,17 @@ public class SessionRequestConverter {
     public static SessionLogoutInnerRequest toInnerRequest(SessionLogoutRequest request) {
         SessionLogoutInnerRequest innerRequest = new SessionLogoutInnerRequest();
         innerRequest.setSessionId(request.getSessionId());
+        innerRequest.setGmtModified(new Date());
+
+        return innerRequest;
+    }
+
+    public static SessionRefreshInnerRequest toInnerRequest(SessionRefreshRequest request) {
+        SessionRefreshInnerRequest innerRequest = new SessionRefreshInnerRequest();
+        innerRequest.setSessionId(request.getSessionId());
+        innerRequest.setSessionDt(Date.from(LocalDateTime.now().plus(Duration.
+                        of(10, ChronoUnit.MINUTES)).
+                atZone(ZoneId.systemDefault()).toInstant()));
         innerRequest.setGmtModified(new Date());
 
         return innerRequest;

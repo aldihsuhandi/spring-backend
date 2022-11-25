@@ -6,6 +6,7 @@ import com.project.spring.common.model.exception.SpringException;
 import com.project.spring.common.model.request.session.SessionLoginInnerRequest;
 import com.project.spring.common.model.request.session.SessionLogoutInnerRequest;
 import com.project.spring.common.model.request.session.SessionQueryInnerRequest;
+import com.project.spring.common.model.request.session.SessionRefreshInnerRequest;
 import com.project.spring.common.model.viewobject.SessionVO;
 import com.project.spring.common.service.SessionService;
 import com.project.spring.common.util.AssertUtil;
@@ -46,6 +47,12 @@ public class SessionServiceImpl implements SessionService {
     public void logout(SessionLogoutInnerRequest request) throws SpringException {
         SessionDAORequest daoRequest = SessionDaoRequestConverter.toDAORequest(request);
         sessionDAO.logout(daoRequest);
+    }
+
+    @Override
+    public void refresh(SessionRefreshInnerRequest request) throws SpringException {
+        SessionDAORequest daoRequest = SessionDaoRequestConverter.toDAORequest(request);
+        sessionDAO.refresh(daoRequest);
     }
 
     @Override

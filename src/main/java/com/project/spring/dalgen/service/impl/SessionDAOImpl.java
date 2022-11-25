@@ -70,4 +70,21 @@ public class SessionDAOImpl implements SessionDAO {
 
         AssertUtil.isExpected(result, 1, "update result", SpringErrorCodeEnum.UPDATE_FAILED);
     }
+
+    @Override
+    public void refresh(SessionDAORequest request) throws SpringException {
+        String statement = "UPDATE sessions SET session_dt = ?, gmt_modified = ? WHERE session_id = ?";
+        int result = 0;
+        try {
+            result = jdbcTemplate.update(statement, ps -> {
+                ps.setTimestamp(1, new Timestamp(request.getSessionDt().getTime()));
+                ps.setTimestamp(2, new Timestamp(request.getGmtModified().getTime()));
+                ps.setString(3, request.getSessionId());
+            });
+        } catch (Exception e) {
+            throw new SpringException(e.getCause().getMessage(), SpringErrorCodeEnum.UPDATE_FAILED);
+        }
+
+        AssertUtil.isExpected(result, 1, "update result", SpringErrorCodeEnum.UPDATE_FAILED);
+    }
 }

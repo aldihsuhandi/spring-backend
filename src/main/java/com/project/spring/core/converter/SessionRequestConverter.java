@@ -15,7 +15,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
 public class SessionRequestConverter {
-    public static SessionLoginInnerRequest toInnerRequest(UserVO userVO, String uuid) {
+    public static SessionLoginInnerRequest toInnerRequest(UserVO userVO, String uuid, boolean isRemembered) {
         SessionLoginInnerRequest innerRequest = new SessionLoginInnerRequest();
         innerRequest.setSessionId(uuid);
         innerRequest.setUserId(userVO.getUserId());
@@ -23,6 +23,7 @@ public class SessionRequestConverter {
                         of(10, ChronoUnit.MINUTES)).
                 atZone(ZoneId.systemDefault()).toInstant()));
         innerRequest.setActive(true);
+        innerRequest.setRemembered(isRemembered);
 
         return innerRequest;
     }

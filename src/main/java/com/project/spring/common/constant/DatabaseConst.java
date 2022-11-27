@@ -9,6 +9,7 @@ public class DatabaseConst {
     public static final String BANNER = "banner";
     public static final String PASSWORD = "password";
     public static final String IS_ACTIVE = "is_active";
+    public static final String IS_REMEMBERED = "is_remembered";
     public static final String GMT_CREATE = "gmt_create";
     public static final String GMT_MODIFIED = "gmt_modified";
     public static final String SESSION_ID = "session_id";

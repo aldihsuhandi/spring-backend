@@ -16,7 +16,9 @@ public enum ProcessTypeEnum {
 
     USER_LOGOUT("USER_LOGOUT", "7100005", "sessionLogoutProcessor", "sessionLogoutValidator"),
 
-    SESSION_REFRESH("SESSION_REFRESH", "7100006", "sessionRefreshProcessor", "sessionRefreshValidator");
+    SESSION_REFRESH("SESSION_REFRESH", "7100006", "sessionRefreshProcessor", "sessionRefreshValidator"),
+
+    SESSION_QUERY("SESSION_QUERY", "7100007", "sessionQueryProcessor", "sessionQueryValidator");
 
     private final String processName;
     private final String processId;

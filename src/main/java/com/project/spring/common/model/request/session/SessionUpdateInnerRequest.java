@@ -7,13 +7,10 @@ import lombok.ToString;
 
 import java.util.Date;
 
-@Getter
 @Setter
+@Getter
 @ToString
-public class SessionLoginInnerRequest extends BaseInnerRequest {
-    private String sessionId;
-    private String userId;
+public class SessionUpdateInnerRequest extends BaseInnerRequest {
     private Date sessionDt;
-    private boolean isActive;
-    private boolean isRemembered;
+    private Date gmtModified;
 }

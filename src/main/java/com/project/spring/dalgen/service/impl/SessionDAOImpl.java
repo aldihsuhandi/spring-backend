@@ -24,13 +24,14 @@ public class SessionDAOImpl implements SessionDAO {
 
     @Override
     public void insert(SessionDAORequest request) throws SpringException {
-        String statement = "INSERT INTO sessions(user_id, session_id, session_dt) VALUES(?, ?, ?)";
+        String statement = "INSERT INTO sessions(user_id, session_id, session_dt, is_remembered) VALUES(?, ?, ?. ?)";
         int result = 0;
         try {
             result = jdbcTemplate.update(statement, ps -> {
                 ps.setString(1, request.getUserId());
                 ps.setString(2, request.getSessionId());
                 ps.setTimestamp(3, new Timestamp(request.getSessionDt().getTime()));
+                ps.setBoolean(4, request.isRemembered());
             });
         } catch (Exception e) {
             throw new SpringException(e.getCause().getMessage(),
@@ -86,5 +87,18 @@ public class SessionDAOImpl implements SessionDAO {
         }
 
         AssertUtil.isExpected(result, 1, "update result", SpringErrorCodeEnum.UPDATE_FAILED);
+    }
+
+    @Override
+    public void deactivate(SessionDAORequest request) throws SpringException {
+        String statement = "UPDATE sessions SET is_active = false, gmt_modified = ? WHERE session_dt <= ? AND is_remembered = false";
+        try {
+            jdbcTemplate.update(statement, ps -> {
+                ps.setTimestamp(1, new Timestamp(request.getSessionDt().getTime()));
+                ps.setTimestamp(2, new Timestamp(request.getGmtModified().getTime()));
+            });
+        } catch (Exception e) {
+            throw new SpringException(e.getCause().getMessage(), SpringErrorCodeEnum.UPDATE_FAILED);
+        }
     }
 }

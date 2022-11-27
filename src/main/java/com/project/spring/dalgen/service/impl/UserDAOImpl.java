@@ -27,9 +27,13 @@ public class UserDAOImpl implements UserDAO {
         String statement = "INSERT INTO users(user_id, email, username, password, gmt_create, gmt_modified) VALUES(?, ?, ?, ?, ?, ?)";
         int result = 0;
         try {
-            result = jdbcTemplate.update(statement,
-                    request.getUserId(), request.getEmail(), request.getUsername(),
-                    request.getPassword(), request.getGmtCreate(), request.getGmtModified());
+            result = jdbcTemplate.update(statement, ps -> {
+                ps.setString(1, request.getUserId());
+                ps.setString(2, request.getEmail());
+                ps.setString(3, request.getPassword());
+                ps.setTimestamp(4, new Timestamp(request.getGmtCreate().getTime()));
+                ps.setTimestamp(5, new Timestamp(request.getGmtModified().getTime()));
+            });
         } catch (Exception e) {
             throw new SpringException(e.getCause().getMessage(), SpringErrorCodeEnum.INSERT_FAILED);
         }

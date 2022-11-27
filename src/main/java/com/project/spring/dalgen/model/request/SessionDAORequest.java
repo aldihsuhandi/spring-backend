@@ -16,6 +16,7 @@ public class SessionDAORequest implements Serializable {
     private String sessionId;
     private String userId;
     private boolean isActive;
+    private boolean isRemembered;
     private Date sessionDt;
     private Date gmtCreate;
     private Date gmtModified;

@@ -12,4 +12,6 @@ public interface SessionDAO {
     void logout(SessionDAORequest request) throws SpringException;
 
     void refresh(SessionDAORequest request) throws SpringException;
+
+    void deactivate(SessionDAORequest request) throws SpringException;
 }

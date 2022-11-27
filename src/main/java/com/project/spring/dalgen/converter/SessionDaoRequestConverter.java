@@ -4,6 +4,7 @@ import com.project.spring.common.model.request.session.SessionLoginInnerRequest;
 import com.project.spring.common.model.request.session.SessionLogoutInnerRequest;
 import com.project.spring.common.model.request.session.SessionQueryInnerRequest;
 import com.project.spring.common.model.request.session.SessionRefreshInnerRequest;
+import com.project.spring.common.model.request.session.SessionUpdateInnerRequest;
 import com.project.spring.dalgen.model.request.SessionDAORequest;
 
 public class SessionDaoRequestConverter {
@@ -13,6 +14,7 @@ public class SessionDaoRequestConverter {
         request.setUserId(innerRequest.getUserId());
         request.setSessionDt(innerRequest.getSessionDt());
         request.setActive(innerRequest.isActive());
+        request.setRemembered(innerRequest.isRemembered());
 
         return request;
     }
@@ -35,6 +37,14 @@ public class SessionDaoRequestConverter {
     public static SessionDAORequest toDAORequest(SessionRefreshInnerRequest innerRequest) {
         SessionDAORequest request = new SessionDAORequest();
         request.setSessionId(innerRequest.getSessionId());
+        request.setGmtModified(innerRequest.getGmtModified());
+        request.setSessionDt(innerRequest.getSessionDt());
+
+        return request;
+    }
+
+    public static SessionDAORequest toDAORequest(SessionUpdateInnerRequest innerRequest) {
+        SessionDAORequest request = new SessionDAORequest();
         request.setGmtModified(innerRequest.getGmtModified());
         request.setSessionDt(innerRequest.getSessionDt());
 

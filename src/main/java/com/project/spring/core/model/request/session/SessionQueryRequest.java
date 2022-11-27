@@ -5,10 +5,9 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-@Setter
 @Getter
+@Setter
 @ToString
-public class SessionLoginRequest extends BaseRequest {
-    private String username;
-    private boolean isRemembered;
+public class SessionQueryRequest extends BaseRequest {
+    private String sessionId;
 }

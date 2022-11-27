@@ -12,6 +12,7 @@
     <bean id="sessionLoginProcessor" class="com.project.spring.process.processor.session.SessionLoginProcessor"/>
     <bean id="sessionLogoutProcessor" class="com.project.spring.process.processor.session.SessionLogoutProcessor"/>
     <bean id="sessionRefreshProcessor" class="com.project.spring.process.processor.session.SessionRefreshProcessor"/>
+    <bean id="sessionQueryProcessor" class="com.project.spring.process.processor.session.SessionQueryProcessor"/>
 
 
     <!--validator-->
@@ -23,6 +24,8 @@
     <bean id="sessionLogoutValidator" class="com.project.spring.common.validator.impl.session.SessionLogoutValidator"/>
     <bean id="sessionRefreshValidator"
           class="com.project.spring.common.validator.impl.session.SessionRefreshValidator"/>
+    <bean id="sessionQueryValidator"
+          class="com.project.spring.common.validator.impl.session.SessionQueryValidator"/>
 
     <bean id="facadeProcess" class="com.project.spring.process.callback.ProcessFacade">
         <property name="processors">
@@ -47,6 +50,9 @@
                 </entry>
                 <entry key="SESSION_REFRESH">
                     <ref bean="sessionRefreshProcessor"/>
+                </entry>
+                <entry key="SESSION_QUERY">
+                    <ref bean="sessionQueryProcessor"/>
                 </entry>
             </map>
         </property>
@@ -73,6 +79,9 @@
                 </entry>
                 <entry key="SESSION_REFRESH">
                     <ref bean="sessionRefreshValidator"/>
+                </entry>
+                <entry key="SESSION_QUERY">
+                    <ref bean="sessionQueryValidator"/>
                 </entry>
             </map>
         </property>

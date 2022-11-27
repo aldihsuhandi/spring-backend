@@ -1,6 +1,11 @@
 package com.project.spring.common.constant;
 
-public class DatabaseConst {
+import java.io.Serializable;
+
+public class DatabaseConst implements Serializable {
+
+    private static final long serialVersionUID = -3332001555392065725L;
+
     public static final String USER_ID = "user_id";
     public static final String EMAIL = "email";
     public static final String USERNAME = "username";

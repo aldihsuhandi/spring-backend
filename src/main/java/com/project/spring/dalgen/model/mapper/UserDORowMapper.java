@@ -1,5 +1,6 @@
 package com.project.spring.dalgen.model.mapper;
 
+import com.project.spring.common.constant.DatabaseConst;
 import com.project.spring.dalgen.model.response.UserDO;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -11,16 +12,16 @@ public class UserDORowMapper implements RowMapper<UserDO> {
     public UserDO mapRow(ResultSet rs, int rowNum) throws SQLException {
         UserDO userDO = new UserDO();
 
-        userDO.setUserId(rs.getString("user_id"));
-        userDO.setEmail(rs.getString("email"));
-        userDO.setUsername(rs.getString("username"));
-        userDO.setProfilePicture(rs.getString("profile_picture"));
-        userDO.setBanner(rs.getString("banner"));
-        userDO.setStatus(rs.getString("status"));
-        userDO.setPassword(rs.getString("password"));
-        userDO.setActive(rs.getBoolean("is_active"));
-        userDO.setGmtCreate(rs.getDate("gmt_create"));
-        userDO.setGmtModified(rs.getDate("gmt_modified"));
+        userDO.setUserId(rs.getString(DatabaseConst.USER_ID));
+        userDO.setEmail(rs.getString(DatabaseConst.EMAIL));
+        userDO.setUsername(rs.getString(DatabaseConst.USERNAME));
+        userDO.setProfilePicture(rs.getString(DatabaseConst.PROFILE_PICTURE));
+        userDO.setBanner(rs.getString(DatabaseConst.BANNER));
+        userDO.setStatus(rs.getString(DatabaseConst.STATUS));
+        userDO.setPassword(rs.getString(DatabaseConst.PASSWORD));
+        userDO.setActive(rs.getBoolean(DatabaseConst.IS_ACTIVE));
+        userDO.setGmtCreate(rs.getTimestamp(DatabaseConst.GMT_CREATE));
+        userDO.setGmtModified(rs.getTimestamp(DatabaseConst.GMT_MODIFIED));
 
         return userDO;
     }

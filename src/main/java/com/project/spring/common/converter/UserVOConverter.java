@@ -1,8 +1,8 @@
 package com.project.spring.common.converter;
 
 import com.project.spring.common.model.viewobject.UserVO;
-import com.project.spring.core.model.result.UserCreateResult;
-import com.project.spring.core.model.result.UserQueryResult;
+import com.project.spring.core.model.result.user.UserCreateResult;
+import com.project.spring.core.model.result.user.UserQueryResult;
 import com.project.spring.dalgen.model.response.UserDO;
 
 public class UserVOConverter {

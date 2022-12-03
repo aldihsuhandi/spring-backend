@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 @Service
@@ -27,9 +27,13 @@ public class UserDAOImpl implements UserDAO {
         String statement = "INSERT INTO users(user_id, email, username, password, gmt_create, gmt_modified) VALUES(?, ?, ?, ?, ?, ?)";
         int result = 0;
         try {
-            result = jdbcTemplate.update(statement,
-                    request.getUserId(), request.getEmail(), request.getUsername(),
-                    request.getPassword(), request.getGmtCreate(), request.getGmtModified());
+            result = jdbcTemplate.update(statement, ps -> {
+                ps.setString(1, request.getUserId());
+                ps.setString(2, request.getEmail());
+                ps.setString(3, request.getPassword());
+                ps.setTimestamp(4, new Timestamp(request.getGmtCreate().getTime()));
+                ps.setTimestamp(5, new Timestamp(request.getGmtModified().getTime()));
+            });
         } catch (Exception e) {
             throw new SpringException(e.getCause().getMessage(), SpringErrorCodeEnum.INSERT_FAILED);
         }
@@ -45,7 +49,8 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public UserDO queryByUserId(UserDAORequest request) {
         String statement = "SELECT * FROM users WHERE user_id = ?";
-        List<UserDO> userDOS = jdbcTemplate.query(statement, ps -> ps.setString(1, request.getUserId()), new UserDORowMapper());
+        List<UserDO> userDOS = jdbcTemplate.query(statement, ps -> ps.
+                setString(1, request.getUserId()), new UserDORowMapper());
         if (userDOS == null || userDOS.isEmpty()) {
             return null;
         }
@@ -90,7 +95,7 @@ public class UserDAOImpl implements UserDAO {
                 ps.setString(4, request.getProfilePicture());
                 ps.setString(5, request.getBanner());
                 ps.setString(6, request.getStatus());
-                ps.setDate(7, new Date(request.getGmtModified().getTime()));
+                ps.setTimestamp(7, new Timestamp(request.getGmtModified().getTime()));
                 ps.setString(8, request.getUserId());
             });
         } catch (Exception e) {
@@ -107,7 +112,7 @@ public class UserDAOImpl implements UserDAO {
         try {
             result = jdbcTemplate.update(statement, ps -> {
                 ps.setBoolean(1, request.isActive());
-                ps.setDate(2, new Date(request.getGmtModified().getTime()));
+                ps.setTimestamp(2, new Timestamp(request.getGmtModified().getTime()));
                 ps.setString(3, request.getUserId());
             });
         } catch (Exception e) {

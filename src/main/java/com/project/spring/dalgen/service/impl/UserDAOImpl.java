@@ -1,5 +1,7 @@
 package com.project.spring.dalgen.service.impl;
 
+import com.project.spring.common.constant.DatabaseConst;
+import com.project.spring.common.database.StatementBuilder;
 import com.project.spring.common.model.enumeration.SpringErrorCodeEnum;
 import com.project.spring.common.model.exception.SpringException;
 import com.project.spring.common.util.AssertUtil;
@@ -24,15 +26,23 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public UserDO createUser(UserDAORequest request) throws SpringException {
-        String statement = "INSERT INTO users(user_id, email, username, password, gmt_create, gmt_modified) VALUES(?, ?, ?, ?, ?, ?)";
+        String statement = new StatementBuilder(DatabaseConst.TABLE_USER, DatabaseConst.STATEMENT_INSERT)
+                .addValueStatement(DatabaseConst.USER_ID)
+                .addValueStatement(DatabaseConst.EMAIL)
+                .addValueStatement(DatabaseConst.USERNAME)
+                .addValueStatement(DatabaseConst.PASSWORD)
+                .addValueStatement(DatabaseConst.GMT_CREATE)
+                .addValueStatement(DatabaseConst.GMT_MODIFIED)
+                .buildStatement();
         int result = 0;
         try {
             result = jdbcTemplate.update(statement, ps -> {
                 ps.setString(1, request.getUserId());
                 ps.setString(2, request.getEmail());
-                ps.setString(3, request.getPassword());
-                ps.setTimestamp(4, new Timestamp(request.getGmtCreate().getTime()));
-                ps.setTimestamp(5, new Timestamp(request.getGmtModified().getTime()));
+                ps.setString(3, request.getUsername());
+                ps.setString(4, request.getPassword());
+                ps.setTimestamp(5, new Timestamp(request.getGmtCreate().getTime()));
+                ps.setTimestamp(6, new Timestamp(request.getGmtModified().getTime()));
             });
         } catch (Exception e) {
             throw new SpringException(e.getCause().getMessage(), SpringErrorCodeEnum.INSERT_FAILED);
@@ -48,7 +58,10 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public UserDO queryByUserId(UserDAORequest request) {
-        String statement = "SELECT * FROM users WHERE user_id = ?";
+        String statement = new StatementBuilder(DatabaseConst.TABLE_USER, DatabaseConst.STATEMENT_SELECT)
+                .addSelectStatement(DatabaseConst.DATABASE_SELECT_ALL)
+                .addWhereStatement(DatabaseConst.APPEND_OPERATOR_AND, DatabaseConst.USER_ID, DatabaseConst.COMPARATOR_EQUAL)
+                .buildStatement();
         List<UserDO> userDOS = jdbcTemplate.query(statement, ps -> ps.
                 setString(1, request.getUserId()), new UserDORowMapper());
         if (userDOS == null || userDOS.isEmpty()) {
@@ -60,7 +73,10 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public UserDO queryByUsername(UserDAORequest request) {
-        String statement = "SELECT * FROM users WHERE username = ?";
+        String statement = new StatementBuilder(DatabaseConst.TABLE_USER, DatabaseConst.STATEMENT_SELECT)
+                .addSelectStatement(DatabaseConst.DATABASE_SELECT_ALL)
+                .addWhereStatement(DatabaseConst.APPEND_OPERATOR_AND, DatabaseConst.USERNAME, DatabaseConst.COMPARATOR_EQUAL)
+                .buildStatement();
         List<UserDO> userDOS = jdbcTemplate.query(statement, ps -> ps.setString(1, request.getUsername()), new UserDORowMapper());
 
         if (userDOS == null || userDOS.isEmpty()) {
@@ -72,7 +88,10 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public UserDO queryByEmail(UserDAORequest request) {
-        String statement = "SELECT * FROM users WHERE email = ?";
+        String statement = new StatementBuilder(DatabaseConst.TABLE_USER, DatabaseConst.STATEMENT_SELECT)
+                .addSelectStatement(DatabaseConst.DATABASE_SELECT_ALL)
+                .addWhereStatement(DatabaseConst.APPEND_OPERATOR_AND, DatabaseConst.EMAIL, DatabaseConst.COMPARATOR_EQUAL)
+                .buildStatement();
         List<UserDO> userDOS = jdbcTemplate.query(statement, ps -> ps.setString(1, request.getEmail()), new UserDORowMapper());
 
         if (userDOS == null || userDOS.isEmpty()) {
@@ -84,7 +103,16 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public void update(UserDAORequest request) throws SpringException {
-        String statement = "UPDATE users SET email=?, username=?, password=?, profile_picture=?, banner=?, status=?, gmt_modified=? WHERE user_id=?";
+        String statement = new StatementBuilder(DatabaseConst.TABLE_USER, DatabaseConst.STATEMENT_UPDATE)
+                .addSetStatement(DatabaseConst.EMAIL)
+                .addSetStatement(DatabaseConst.USERNAME)
+                .addSetStatement(DatabaseConst.PASSWORD)
+                .addSetStatement(DatabaseConst.PROFILE_PICTURE)
+                .addSetStatement(DatabaseConst.BANNER)
+                .addSetStatement(DatabaseConst.STATUS)
+                .addSetStatement(DatabaseConst.GMT_MODIFIED)
+                .addWhereStatement(DatabaseConst.APPEND_OPERATOR_AND, DatabaseConst.USER_ID, DatabaseConst.COMPARATOR_EQUAL)
+                .buildStatement();
 
         int result = 0;
         try {
@@ -107,7 +135,11 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public void delete(UserDAORequest request) throws SpringException {
-        String statement = "UPDATE users SET is_active=?, gmt_modified=? WHERE user_id=?";
+        String statement = new StatementBuilder(DatabaseConst.TABLE_USER, DatabaseConst.STATEMENT_UPDATE)
+                .addSetStatement(DatabaseConst.IS_ACTIVE)
+                .addSetStatement(DatabaseConst.GMT_MODIFIED)
+                .addWhereStatement(DatabaseConst.APPEND_OPERATOR_AND, DatabaseConst.USER_ID, DatabaseConst.COMPARATOR_EQUAL)
+                .buildStatement();
         int result = 0;
         try {
             result = jdbcTemplate.update(statement, ps -> {

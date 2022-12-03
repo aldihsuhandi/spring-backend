@@ -20,7 +20,11 @@ public enum ProcessTypeEnum {
 
     SESSION_QUERY("SESSION_QUERY", "7100007", "sessionQueryProcessor", "sessionQueryValidator"),
 
-    ADD_FRIEND("ADD_FRIEND", "7100008", "addFriendProcessor", "addFriendValidator");
+    ADD_FRIEND("ADD_FRIEND", "7100008", "addFriendProcessor", "addFriendValidator"),
+
+    ACCEPT_FRIEND("ACCEPT_FRIEND", "7100008", "acceptFriendProcessor", "acceptFriendValidator"),
+
+    REJECT_FRIEND("REJECT_FRIEND", "7100009", "rejectFriendProcessor", "rejectFriendValidator");
 
     private final String processName;
     private final String processId;

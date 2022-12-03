@@ -1,9 +1,9 @@
 package com.project.spring.process.callback;
 
 import com.project.spring.common.model.enumeration.ProcessTypeEnum;
-import com.project.spring.common.validator.BaseValidator;
 import com.project.spring.core.model.request.BaseRequest;
 import com.project.spring.core.model.result.BaseResult;
+import com.project.spring.core.validator.BaseValidator;
 import com.project.spring.process.processor.BaseProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 

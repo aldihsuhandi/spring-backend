@@ -22,6 +22,7 @@ public class DatabaseConst implements Serializable {
     public static final String TABLE_USER = "users";
     public static final String TABLE_SESSION = "sessions";
     public static final String TABLE_FRIEND_REQUEST = "friend_requests";
+    public static final String TABLE_FRIEND_LIST = "friend_lists";
 
     public static final String USER_ID = "user_id";
     public static final String EMAIL = "email";
@@ -40,4 +41,6 @@ public class DatabaseConst implements Serializable {
     public static final String RECEIVER_ID = "receiver_id";
     public static final String IS_ACCEPTED = "is_accepted";
     public static final String IS_DELETED = "is_deleted";
+    public static final String FRIEND_ID = "friend_id";
+    public static final String IS_BLOCKED = "is_blocked";
 }

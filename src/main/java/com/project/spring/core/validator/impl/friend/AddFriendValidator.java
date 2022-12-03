@@ -1,10 +1,10 @@
-package com.project.spring.common.validator.impl.friend;
+package com.project.spring.core.validator.impl.friend;
 
 import com.project.spring.common.model.enumeration.SpringErrorCodeEnum;
 import com.project.spring.common.util.ParamChecker;
-import com.project.spring.common.validator.BaseValidator;
 import com.project.spring.core.model.request.BaseRequest;
 import com.project.spring.core.model.request.friend.AddFriendRequest;
+import com.project.spring.core.validator.BaseValidator;
 
 public class AddFriendValidator implements BaseValidator {
     @Override

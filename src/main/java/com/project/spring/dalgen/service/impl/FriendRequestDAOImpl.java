@@ -26,7 +26,7 @@ public class FriendRequestDAOImpl implements FriendRequestDAO {
                 .addValueStatement(DatabaseConst.RECEIVER_ID)
                 .buildStatement();
 
-        int result = 0;
+        int result;
         try {
             result = jdbcTemplate.update(statement, ps -> {
                 ps.setString(1, request.getRequesterId());
@@ -39,5 +39,31 @@ public class FriendRequestDAOImpl implements FriendRequestDAO {
 
         AssertUtil.isNotExpected(result, 0,
                 "insert result", SpringErrorCodeEnum.INSERT_FAILED);
+    }
+
+    @Override
+    public void update(FriendRequestDAORequest request) throws SpringException {
+        String statement = new StatementBuilder(DatabaseConst.TABLE_FRIEND_REQUEST, DatabaseConst.STATEMENT_UPDATE)
+                .addSetStatement(DatabaseConst.IS_ACCEPTED)
+                .addSetStatement(DatabaseConst.IS_DELETED)
+                .addWhereStatement(DatabaseConst.APPEND_OPERATOR_AND, DatabaseConst.RECEIVER_ID, DatabaseConst.COMPARATOR_EQUAL)
+                .addWhereStatement(DatabaseConst.APPEND_OPERATOR_AND, DatabaseConst.REQUESTER_ID, DatabaseConst.COMPARATOR_EQUAL)
+                .buildStatement();
+
+        int result;
+        try {
+            result = jdbcTemplate.update(statement, ps -> {
+                ps.setBoolean(1, request.isAccepted());
+                ps.setBoolean(2, request.isDeleted());
+                ps.setString(3, request.getReceiverId());
+                ps.setString(4, request.getRequesterId());
+            });
+        } catch (Exception e) {
+            throw new SpringException(e.getCause().getMessage(),
+                    SpringErrorCodeEnum.UPDATE_FAILED);
+        }
+
+        AssertUtil.isNotExpected(result, 0,
+                "update result", SpringErrorCodeEnum.UPDATE_FAILED);
     }
 }

@@ -2,6 +2,7 @@ package com.project.spring.common.service.impl;
 
 import com.project.spring.common.model.exception.SpringException;
 import com.project.spring.common.model.request.friend.AddFriendInnerRequest;
+import com.project.spring.common.model.request.friend.UpdateFriendRequestInnerRequest;
 import com.project.spring.common.service.FriendRequestService;
 import com.project.spring.dalgen.converter.FriendRequestDaoRequestConverter;
 import com.project.spring.dalgen.model.request.FriendRequestDAORequest;
@@ -23,5 +24,13 @@ public class FriendRequestServiceImpl implements FriendRequestService {
         FriendRequestDAORequest daoRequest = FriendRequestDaoRequestConverter.
                 toDAORequest(request);
         friendRequestDAO.insert(daoRequest);
+    }
+
+    @Override
+    public void updateFriendRequest(UpdateFriendRequestInnerRequest request) throws SpringException {
+        FriendRequestDAORequest daoRequest = FriendRequestDaoRequestConverter.
+                toDAORequest(request);
+
+        friendRequestDAO.update(daoRequest);
     }
 }

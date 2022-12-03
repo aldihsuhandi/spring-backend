@@ -7,6 +7,7 @@ import com.project.spring.core.converter.SessionRequestConverter;
 import com.project.spring.core.model.request.BaseRequest;
 import com.project.spring.core.model.request.session.SessionRefreshRequest;
 import com.project.spring.core.model.result.BaseResult;
+import com.project.spring.core.model.result.session.SessionRefreshResult;
 import com.project.spring.process.processor.BaseProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -20,10 +21,13 @@ public class SessionRefreshProcessor implements BaseProcessor {
     @Override
     public void doProcess(BaseResult result, BaseRequest request) throws SpringException {
         SessionRefreshRequest refreshRequest = (SessionRefreshRequest) request;
+        SessionRefreshResult refreshResult = (SessionRefreshResult) result;
+        sessionService.refresh(SessionRequestConverter.
+                toInnerRequest(refreshRequest));
+
         SessionVO sessionVO = sessionService.query(SessionRequestConverter.
                 toInnerRequest(refreshRequest.getSessionId()));
 
-        sessionService.refresh(SessionRequestConverter.
-                toInnerRequest(refreshRequest));
+        refreshResult.setSessionDt(sessionVO.getSessionDt());
     }
 }

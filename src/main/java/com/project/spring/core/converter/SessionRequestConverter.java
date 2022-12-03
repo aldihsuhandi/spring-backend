@@ -47,7 +47,7 @@ public class SessionRequestConverter {
         SessionRefreshInnerRequest innerRequest = new SessionRefreshInnerRequest();
         innerRequest.setSessionId(request.getSessionId());
         innerRequest.setSessionDt(Date.from(LocalDateTime.now().plus(Duration.
-                        of(10, ChronoUnit.MINUTES)).
+                        of(20, ChronoUnit.MINUTES)).
                 atZone(ZoneId.systemDefault()).toInstant()));
         innerRequest.setGmtModified(new Date());
 

@@ -1,5 +1,7 @@
 package com.project.spring.dalgen.service.impl;
 
+import com.project.spring.common.constant.DatabaseConst;
+import com.project.spring.common.database.StatementBuilder;
 import com.project.spring.common.model.enumeration.SpringErrorCodeEnum;
 import com.project.spring.common.model.exception.SpringException;
 import com.project.spring.common.util.AssertUtil;
@@ -24,7 +26,13 @@ public class SessionDAOImpl implements SessionDAO {
 
     @Override
     public void insert(SessionDAORequest request) throws SpringException {
-        String statement = "INSERT INTO sessions(user_id, session_id, session_dt, is_remembered) VALUES(?, ?, ?. ?)";
+        String statement = new StatementBuilder(DatabaseConst.TABLE_SESSION, DatabaseConst.STATEMENT_INSERT)
+                .addValueStatement(DatabaseConst.USER_ID)
+                .addValueStatement(DatabaseConst.SESSION_ID)
+                .addValueStatement(DatabaseConst.SESSION_DT)
+                .addValueStatement(DatabaseConst.IS_REMEMBERED)
+                .buildStatement();
+
         int result = 0;
         try {
             result = jdbcTemplate.update(statement, ps -> {
@@ -44,7 +52,11 @@ public class SessionDAOImpl implements SessionDAO {
 
     @Override
     public SessionDO query(SessionDAORequest request) {
-        String statement = "SELECT * FROM sessions WHERE session_id = ?";
+        String statement = new StatementBuilder(DatabaseConst.TABLE_SESSION, DatabaseConst.STATEMENT_SELECT)
+                .addSelectStatement(DatabaseConst.DATABASE_SELECT_ALL)
+                .addWhereStatement(DatabaseConst.APPEND_OPERATOR_AND, DatabaseConst.SESSION_ID, DatabaseConst.COMPARATOR_EQUAL)
+                .buildStatement();
+
         List<SessionDO> sessionDOS = jdbcTemplate.query(statement, ps -> ps.
                 setString(1, request.getSessionId()), new SessionDORowMapper());
 
@@ -57,13 +69,18 @@ public class SessionDAOImpl implements SessionDAO {
 
     @Override
     public void logout(SessionDAORequest request) throws SpringException {
-        String statement = "UPDATE sessions SET is_active = false, gmt_modified = ? WHERE session_id = ?";
+        String statement = new StatementBuilder(DatabaseConst.TABLE_SESSION, DatabaseConst.STATEMENT_UPDATE)
+                .addSetStatement(DatabaseConst.IS_ACTIVE)
+                .addSetStatement(DatabaseConst.GMT_MODIFIED)
+                .addWhereStatement(DatabaseConst.APPEND_OPERATOR_AND, DatabaseConst.SESSION_ID, DatabaseConst.COMPARATOR_EQUAL)
+                .buildStatement();
 
         int result = 0;
         try {
             result = jdbcTemplate.update(statement, ps -> {
-                ps.setTimestamp(1, new Timestamp(request.getGmtModified().getTime()));
-                ps.setString(2, request.getSessionId());
+                ps.setBoolean(1, false);
+                ps.setTimestamp(2, new Timestamp(request.getGmtModified().getTime()));
+                ps.setString(3, request.getSessionId());
             });
         } catch (Exception e) {
             throw new SpringException(e.getCause().getMessage(), SpringErrorCodeEnum.UPDATE_FAILED);
@@ -74,7 +91,12 @@ public class SessionDAOImpl implements SessionDAO {
 
     @Override
     public void refresh(SessionDAORequest request) throws SpringException {
-        String statement = "UPDATE sessions SET session_dt = ?, gmt_modified = ? WHERE session_id = ?";
+        String statement = new StatementBuilder(DatabaseConst.TABLE_SESSION, DatabaseConst.STATEMENT_UPDATE)
+                .addSetStatement(DatabaseConst.SESSION_DT)
+                .addSetStatement(DatabaseConst.GMT_MODIFIED)
+                .addWhereStatement(DatabaseConst.APPEND_OPERATOR_AND, DatabaseConst.SESSION_ID, DatabaseConst.COMPARATOR_EQUAL)
+                .buildStatement();
+
         int result = 0;
         try {
             result = jdbcTemplate.update(statement, ps -> {
@@ -91,11 +113,21 @@ public class SessionDAOImpl implements SessionDAO {
 
     @Override
     public void deactivate(SessionDAORequest request) throws SpringException {
-        String statement = "UPDATE sessions SET is_active = false, gmt_modified = ? WHERE session_dt <= ? AND is_remembered = false";
+        String statement = new StatementBuilder(DatabaseConst.TABLE_SESSION, DatabaseConst.STATEMENT_UPDATE)
+                .addSetStatement(DatabaseConst.IS_ACTIVE)
+                .addSetStatement(DatabaseConst.GMT_MODIFIED)
+                .addWhereStatement(DatabaseConst.APPEND_OPERATOR_AND, DatabaseConst.GMT_MODIFIED, DatabaseConst.COMPARATOR_LESSER_THAN)
+                .addWhereStatement(DatabaseConst.APPEND_OPERATOR_AND, DatabaseConst.IS_REMEMBERED, DatabaseConst.COMPARATOR_EQUAL)
+                .buildStatement();
+
+        System.out.printf("DEBUGGING[statement: %s]\n", statement);
+
         try {
             jdbcTemplate.update(statement, ps -> {
-                ps.setTimestamp(1, new Timestamp(request.getSessionDt().getTime()));
-                ps.setTimestamp(2, new Timestamp(request.getGmtModified().getTime()));
+                ps.setBoolean(1, false);
+                ps.setTimestamp(2, new Timestamp(request.getSessionDt().getTime()));
+                ps.setTimestamp(3, new Timestamp(request.getGmtModified().getTime()));
+                ps.setBoolean(4, false);
             });
         } catch (Exception e) {
             throw new SpringException(e.getCause().getMessage(), SpringErrorCodeEnum.UPDATE_FAILED);

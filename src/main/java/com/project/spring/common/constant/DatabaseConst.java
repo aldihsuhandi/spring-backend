@@ -19,4 +19,8 @@ public class DatabaseConst implements Serializable {
     public static final String GMT_MODIFIED = "gmt_modified";
     public static final String SESSION_ID = "session_id";
     public static final String SESSION_DT = "session_dt";
+    public static final String REQUESTER_ID = "requester_id";
+    public static final String RECEIVER_ID = "receiver_id";
+    public static final String IS_ACCEPTED = "is_accepted";
+    public static final String IS_DELETED = "is_deleted";
 }

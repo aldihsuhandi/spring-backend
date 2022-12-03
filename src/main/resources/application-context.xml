@@ -5,27 +5,38 @@
            http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <!--processor-->
+    <!--user-->
     <bean id="userCreateProcessor" class="com.project.spring.process.processor.user.UserCreateProcessor"/>
     <bean id="userQueryProcessor" class="com.project.spring.process.processor.user.UserQueryProcessor"/>
     <bean id="userUpdateProcessor" class="com.project.spring.process.processor.user.UserUpdateProcessor"/>
     <bean id="userDeleteProcessor" class="com.project.spring.process.processor.user.UserDeleteProcessor"/>
+
+    <!--session-->
     <bean id="sessionLoginProcessor" class="com.project.spring.process.processor.session.SessionLoginProcessor"/>
     <bean id="sessionLogoutProcessor" class="com.project.spring.process.processor.session.SessionLogoutProcessor"/>
     <bean id="sessionRefreshProcessor" class="com.project.spring.process.processor.session.SessionRefreshProcessor"/>
     <bean id="sessionQueryProcessor" class="com.project.spring.process.processor.session.SessionQueryProcessor"/>
 
+    <!--friend-->
+    <bean id="addFriendProcessor" class="com.project.spring.process.processor.friend.AddFriendProcessor"/>
 
     <!--validator-->
+    <!--user-->
     <bean id="userCreateValidator" class="com.project.spring.common.validator.impl.user.UserCreateValidator"/>
     <bean id="userQueryValidator" class="com.project.spring.common.validator.impl.user.UserQueryValidator"/>
     <bean id="userUpdateValidator" class="com.project.spring.common.validator.impl.user.UserUpdateValidator"/>
     <bean id="userDeleteValidator" class="com.project.spring.common.validator.impl.user.UserDeleteValidator"/>
+
+    <!--session-->
     <bean id="sessionLoginValidator" class="com.project.spring.common.validator.impl.session.SessionLoginValidator"/>
     <bean id="sessionLogoutValidator" class="com.project.spring.common.validator.impl.session.SessionLogoutValidator"/>
     <bean id="sessionRefreshValidator"
           class="com.project.spring.common.validator.impl.session.SessionRefreshValidator"/>
     <bean id="sessionQueryValidator"
           class="com.project.spring.common.validator.impl.session.SessionQueryValidator"/>
+
+    <!--friend-->
+    <bean id="addFriendValidator" class="com.project.spring.common.validator.impl.friend.AddFriendValidator"/>
 
     <bean id="facadeProcess" class="com.project.spring.process.callback.ProcessFacade">
         <property name="processors">
@@ -53,6 +64,9 @@
                 </entry>
                 <entry key="SESSION_QUERY">
                     <ref bean="sessionQueryProcessor"/>
+                </entry>
+                <entry key="ADD_FRIEND">
+                    <ref bean="addFriendProcessor"/>
                 </entry>
             </map>
         </property>
@@ -82,6 +96,9 @@
                 </entry>
                 <entry key="SESSION_QUERY">
                     <ref bean="sessionQueryValidator"/>
+                </entry>
+                <entry key="ADD_FRIEND">
+                    <ref bean="addFriendValidator"/>
                 </entry>
             </map>
         </property>

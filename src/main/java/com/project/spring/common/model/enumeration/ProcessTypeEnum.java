@@ -18,7 +18,9 @@ public enum ProcessTypeEnum {
 
     SESSION_REFRESH("SESSION_REFRESH", "7100006", "sessionRefreshProcessor", "sessionRefreshValidator"),
 
-    SESSION_QUERY("SESSION_QUERY", "7100007", "sessionQueryProcessor", "sessionQueryValidator");
+    SESSION_QUERY("SESSION_QUERY", "7100007", "sessionQueryProcessor", "sessionQueryValidator"),
+
+    ADD_FRIEND("ADD_FRIEND", "7100008", "addFriendProcessor", "addFriendValidator");
 
     private final String processName;
     private final String processId;

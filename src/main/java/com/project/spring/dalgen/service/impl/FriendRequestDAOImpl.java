@@ -1,5 +1,7 @@
 package com.project.spring.dalgen.service.impl;
 
+import com.project.spring.common.constant.DatabaseConst;
+import com.project.spring.common.database.StatementBuilder;
 import com.project.spring.common.model.enumeration.SpringErrorCodeEnum;
 import com.project.spring.common.model.exception.SpringException;
 import com.project.spring.common.util.AssertUtil;
@@ -19,7 +21,11 @@ public class FriendRequestDAOImpl implements FriendRequestDAO {
 
     @Override
     public void insert(FriendRequestDAORequest request) throws SpringException {
-        String statement = "INSERT INTO friend_requests(requester_id, receiver_id) VALUES(?, ?)";
+        String statement = new StatementBuilder(DatabaseConst.TABLE_FRIEND_REQUEST, DatabaseConst.STATEMENT_INSERT)
+                .addValueStatement(DatabaseConst.REQUESTER_ID)
+                .addValueStatement(DatabaseConst.RECEIVER_ID)
+                .buildStatement();
+
         int result = 0;
         try {
             result = jdbcTemplate.update(statement, ps -> {

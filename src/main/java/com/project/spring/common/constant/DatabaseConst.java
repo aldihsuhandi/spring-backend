@@ -21,6 +21,7 @@ public class DatabaseConst implements Serializable {
 
     public static final String TABLE_USER = "users";
     public static final String TABLE_SESSION = "sessions";
+    public static final String TABLE_FRIEND_REQUEST = "friend_requests";
 
     public static final String USER_ID = "user_id";
     public static final String EMAIL = "email";

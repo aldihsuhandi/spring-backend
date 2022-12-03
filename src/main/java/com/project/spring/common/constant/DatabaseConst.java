@@ -6,6 +6,17 @@ public class DatabaseConst implements Serializable {
 
     private static final long serialVersionUID = -3332001555392065725L;
 
+    public static String STATEMENT_UPDATE = "update";
+    public static String STATEMENT_DELETE = "delete";
+    public static String STATEMENT_INSERT = "insert";
+    public static String STATEMENT_SELECT = "select";
+    public static String COMPARATOR_EQUAL = "=";
+    public static String COMPARATOR_GREATER = ">";
+    public static String COMPARATOR_LESSER = "<";
+    public static String COMPARATOR_GREATER_THAN = ">=";
+    public static String COMPARATOR_LESSER_THAN = "<=";
+    public static String APPEND_OPERATOR_AND = "and";
+    public static String APPEND_OPERATOR_OR = "or";
     public static final String USER_ID = "user_id";
     public static final String EMAIL = "email";
     public static final String USERNAME = "username";

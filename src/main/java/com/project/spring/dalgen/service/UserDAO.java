@@ -15,6 +15,8 @@ public interface UserDAO {
 
     UserDO queryByEmail(UserDAORequest request);
 
+    List<UserDO> queryAll();
+
     List<UserDO> queryUserListById(List<UserDAORequest> requests);
 
     List<UserDO> queryUserListByUsername(List<UserDAORequest> requests);

@@ -106,6 +106,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<UserVO> queryAll() throws SpringException {
+        List<UserDO> userDOS = userDAO.queryAll();
+
+        return userDOS.stream().map(userDO -> {
+            UserVO userVO = UserVOConverter.toViewObject(userDO);
+            userCache.put(userVO);
+
+            return userVO;
+        }).collect(Collectors.toList());
+    }
+
+    @Override
     public List<UserVO> queryListById(UserQueryListInnerRequest request) {
 
         List<UserVO> userVOS = new ArrayList<>();

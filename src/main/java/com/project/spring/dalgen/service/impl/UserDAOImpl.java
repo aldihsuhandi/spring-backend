@@ -104,6 +104,15 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
+    public List<UserDO> queryAll() {
+        String statement = new StatementBuilder(DatabaseConst.TABLE_USER, DatabaseConst.STATEMENT_SELECT)
+                .addSelectStatement(DatabaseConst.DATABASE_SELECT_ALL)
+                .buildStatement();
+
+        return jdbcTemplate.query(statement, new UserDORowMapper());
+    }
+
+    @Override
     public List<UserDO> queryUserListById(List<UserDAORequest> requests) {
         String statement = new StatementBuilder(DatabaseConst.TABLE_USER, DatabaseConst.STATEMENT_SELECT)
                 .addWhereStatement(DatabaseConst.APPEND_OPERATOR_AND, DatabaseConst.USER_ID, DatabaseConst.COMPARATOR_IN)

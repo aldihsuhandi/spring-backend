@@ -20,6 +20,8 @@ public interface UserService {
 
     UserVO queryByEmail(UserQueryInnerRequest request) throws SpringException;
 
+    List<UserVO> queryAll() throws SpringException;
+
     List<UserVO> queryListById(UserQueryListInnerRequest request) throws SpringException;
 
     List<UserVO> queryListByEmail(UserQueryListInnerRequest request);

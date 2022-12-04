@@ -120,8 +120,6 @@ public class SessionDAOImpl implements SessionDAO {
                 .addWhereStatement(DatabaseConst.APPEND_OPERATOR_AND, DatabaseConst.IS_REMEMBERED, DatabaseConst.COMPARATOR_EQUAL)
                 .buildStatement();
 
-        System.out.printf("DEBUGGING[statement: %s]\n", statement);
-
         try {
             jdbcTemplate.update(statement, ps -> {
                 ps.setBoolean(1, false);

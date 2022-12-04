@@ -42,7 +42,7 @@ public class QueryFriendRequestProcessor implements BaseProcessor {
 
         UserQueryListInnerRequest usersQueryRequest = UserRequestConverter.toInnerRequest(
                 friendRequestDOList.stream().map(friendRequest -> friendRequest.
-                        getReceiver().getUserId()).collect(Collectors.toList()), CommonConst.USER_ID);
+                        getReceiver().getUserId()).collect(Collectors.toList()), CommonConst.USER_ID, true);
 
         List<UserVO> userVOS = userService.queryListById(usersQueryRequest);
 

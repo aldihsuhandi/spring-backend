@@ -30,9 +30,9 @@ public class AddFriendProcessor implements BaseProcessor {
     public void doProcess(BaseResult result, BaseRequest request) throws SpringException {
         AddFriendRequest addFriendRequest = (AddFriendRequest) request;
         UserQueryInnerRequest requesterQueryRequest = UserRequestConverter.
-                toInnerRequest(addFriendRequest.getRequesterUsername(), CommonConst.USERNAME);
+                toInnerRequest(addFriendRequest.getRequesterUsername(), CommonConst.USERNAME, true);
         UserQueryInnerRequest receiverQueryRequest = UserRequestConverter.
-                toInnerRequest(addFriendRequest.getReceiverUsername(), CommonConst.USERNAME);
+                toInnerRequest(addFriendRequest.getReceiverUsername(), CommonConst.USERNAME, true);
 
         UserVO receiver = userService.queryByUsername(receiverQueryRequest);
         UserVO requester = userService.queryByUsername(requesterQueryRequest);

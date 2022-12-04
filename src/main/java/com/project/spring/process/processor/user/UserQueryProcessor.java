@@ -27,7 +27,7 @@ public class UserQueryProcessor implements BaseProcessor {
         UserQueryResult userQueryResult = (UserQueryResult) result;
 
         UserVO userVO = new UserVO();
-        UserQueryInnerRequest innerRequest = UserRequestConverter.toInnerRequest(userQueryRequest);
+        UserQueryInnerRequest innerRequest = UserRequestConverter.toInnerRequest(userQueryRequest, true);
         if (StringUtil.isNotEmpty(userQueryRequest.getUserId())) {
             userVO = userService.queryById(innerRequest);
         } else if (StringUtil.isNotEmpty(userQueryRequest.getEmail())) {

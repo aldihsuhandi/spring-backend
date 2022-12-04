@@ -5,6 +5,7 @@ import com.project.spring.common.model.context.UserUpdateContext;
 import com.project.spring.common.model.request.user.UserCreateInnerRequest;
 import com.project.spring.common.model.request.user.UserDeleteInnerRequest;
 import com.project.spring.common.model.request.user.UserQueryInnerRequest;
+import com.project.spring.common.model.request.user.UserUpdateCacheInnerRequest;
 import com.project.spring.common.model.request.user.UserUpdateInnerRequest;
 import com.project.spring.common.model.viewobject.UserVO;
 import com.project.spring.common.util.StringUtil;
@@ -13,7 +14,9 @@ import com.project.spring.core.model.request.user.UserDeleteRequest;
 import com.project.spring.core.model.request.user.UserQueryRequest;
 import com.project.spring.core.model.request.user.UserUpdateRequest;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class UserRequestConverter {
     public static UserCreateInnerRequest toInnerRequest(UserCreateRequest request) {
@@ -26,16 +29,17 @@ public class UserRequestConverter {
         return innerRequest;
     }
 
-    public static UserQueryInnerRequest toInnerRequest(UserQueryRequest request) {
+    public static UserQueryInnerRequest toInnerRequest(UserQueryRequest request, boolean useCache) {
         UserQueryInnerRequest innerRequest = new UserQueryInnerRequest();
         innerRequest.setEmail(request.getEmail());
         innerRequest.setUsername(request.getUsername());
         innerRequest.setUserId(request.getUserId());
+        innerRequest.setUseCache(useCache);
 
         return innerRequest;
     }
 
-    public static UserQueryInnerRequest toInnerRequest(String value, String key) {
+    public static UserQueryInnerRequest toInnerRequest(String value, String key, boolean useCache) {
         UserQueryInnerRequest request = new UserQueryInnerRequest();
         switch (key) {
             case CommonConst.EMAIL:
@@ -50,6 +54,8 @@ public class UserRequestConverter {
                 request.setUsername(value);
                 break;
         }
+
+        request.setUseCache(useCache);
 
         return request;
     }
@@ -80,6 +86,29 @@ public class UserRequestConverter {
         innerRequest.setUserId(userVO.getUserId());
         innerRequest.setActive(false);
         innerRequest.setGmtModified(new Date());
+
+        return innerRequest;
+    }
+
+    public static UserUpdateCacheInnerRequest toInnerRequest(List<String> userIds, String identifier) {
+        UserUpdateCacheInnerRequest innerRequest = new UserUpdateCacheInnerRequest();
+        innerRequest.setUpdateAll(false);
+        innerRequest.setKeys(userIds);
+        innerRequest.setIdentifier(identifier);
+
+        return innerRequest;
+    }
+
+    public static UserUpdateCacheInnerRequest toInnerRequest(String userId, String identifier) {
+        List<String> userIds = new ArrayList<>();
+        userIds.add(userId);
+
+        return toInnerRequest(userIds, identifier);
+    }
+
+    public static UserUpdateCacheInnerRequest toInnerRequest() {
+        UserUpdateCacheInnerRequest innerRequest = new UserUpdateCacheInnerRequest();
+        innerRequest.setUpdateAll(false);
 
         return innerRequest;
     }

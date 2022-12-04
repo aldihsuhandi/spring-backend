@@ -4,6 +4,8 @@ import com.project.spring.common.model.exception.SpringException;
 import com.project.spring.dalgen.model.request.UserDAORequest;
 import com.project.spring.dalgen.model.response.UserDO;
 
+import java.util.List;
+
 public interface UserDAO {
     UserDO createUser(UserDAORequest request) throws SpringException;
 
@@ -12,6 +14,8 @@ public interface UserDAO {
     UserDO queryByUsername(UserDAORequest request);
 
     UserDO queryByEmail(UserDAORequest request);
+
+    List<UserDO> queryUsersById(List<UserDAORequest> requests);
 
     void update(UserDAORequest request) throws SpringException;
 

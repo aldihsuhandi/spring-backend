@@ -102,6 +102,11 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
+    public List<UserDO> queryUsersById(List<UserDAORequest> requests) {
+        return null;
+    }
+
+    @Override
     public void update(UserDAORequest request) throws SpringException {
         String statement = new StatementBuilder(DatabaseConst.TABLE_USER, DatabaseConst.STATEMENT_UPDATE)
                 .addSetStatement(DatabaseConst.EMAIL)

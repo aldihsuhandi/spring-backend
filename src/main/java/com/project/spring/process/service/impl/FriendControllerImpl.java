@@ -3,10 +3,12 @@ package com.project.spring.process.service.impl;
 import com.project.spring.common.model.enumeration.ProcessTypeEnum;
 import com.project.spring.core.model.request.friend.AcceptFriendRequest;
 import com.project.spring.core.model.request.friend.AddFriendRequest;
+import com.project.spring.core.model.request.friend.QueryFriendRequestListRequest;
 import com.project.spring.core.model.request.friend.RejectFriendRequest;
 import com.project.spring.core.model.result.BaseResult;
 import com.project.spring.core.model.result.friend.AcceptFriendResult;
 import com.project.spring.core.model.result.friend.AddFriendResult;
+import com.project.spring.core.model.result.friend.QueryFriendRequestListResult;
 import com.project.spring.core.model.result.friend.RejectFriendResult;
 import com.project.spring.core.service.FriendController;
 import com.project.spring.process.callback.ProcessCallback;
@@ -59,6 +61,21 @@ public class FriendControllerImpl extends ProcessFacade implements FriendControl
             @Override
             public BaseResult initResult() {
                 return new RejectFriendResult();
+            }
+
+            @Override
+            public void process(ProcessTypeEnum processType, BaseResult result) throws Exception {
+                doProcess(request, result, processType);
+            }
+        });
+    }
+
+    @Override
+    public QueryFriendRequestListResult queryFriendRequest(QueryFriendRequestListRequest request) {
+        return (QueryFriendRequestListResult) ProcessCallbackSupport.process(request, ProcessTypeEnum.QUERY_FRIEND_REQUEST, new ProcessCallback() {
+            @Override
+            public BaseResult initResult() {
+                return new QueryFriendRequestListResult();
             }
 
             @Override

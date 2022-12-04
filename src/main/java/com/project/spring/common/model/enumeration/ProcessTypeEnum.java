@@ -14,17 +14,19 @@ public enum ProcessTypeEnum {
 
     USER_LOGIN("USER_LOGIN", "7100005", "sessionLoginProcessor", "sessionLoginValidator"),
 
-    USER_LOGOUT("USER_LOGOUT", "7100005", "sessionLogoutProcessor", "sessionLogoutValidator"),
+    USER_LOGOUT("USER_LOGOUT", "7100006", "sessionLogoutProcessor", "sessionLogoutValidator"),
 
-    SESSION_REFRESH("SESSION_REFRESH", "7100006", "sessionRefreshProcessor", "sessionRefreshValidator"),
+    SESSION_REFRESH("SESSION_REFRESH", "7100007", "sessionRefreshProcessor", "sessionRefreshValidator"),
 
-    SESSION_QUERY("SESSION_QUERY", "7100007", "sessionQueryProcessor", "sessionQueryValidator"),
+    SESSION_QUERY("SESSION_QUERY", "7100008", "sessionQueryProcessor", "sessionQueryValidator"),
 
-    ADD_FRIEND("ADD_FRIEND", "7100008", "addFriendProcessor", "addFriendValidator"),
+    ADD_FRIEND("ADD_FRIEND", "7100009", "addFriendProcessor", "addFriendValidator"),
 
-    ACCEPT_FRIEND("ACCEPT_FRIEND", "7100008", "acceptFriendProcessor", "acceptFriendValidator"),
+    ACCEPT_FRIEND("ACCEPT_FRIEND", "7100010", "acceptFriendProcessor", "acceptFriendValidator"),
 
-    REJECT_FRIEND("REJECT_FRIEND", "7100009", "rejectFriendProcessor", "rejectFriendValidator");
+    REJECT_FRIEND("REJECT_FRIEND", "7100011", "rejectFriendProcessor", "rejectFriendValidator"),
+
+    QUERY_FRIEND_REQUEST("QUERY_FRIEND_REQUEST", "7100012", "queryFriendRequestProcessor", "queryFriendRequestValidator");
 
     private final String processName;
     private final String processId;

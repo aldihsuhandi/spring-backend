@@ -5,12 +5,16 @@ import com.project.spring.common.database.StatementBuilder;
 import com.project.spring.common.model.enumeration.SpringErrorCodeEnum;
 import com.project.spring.common.model.exception.SpringException;
 import com.project.spring.common.util.AssertUtil;
+import com.project.spring.dalgen.model.mapper.FriendRequestDORowMapper;
 import com.project.spring.dalgen.model.request.FriendRequestDAORequest;
+import com.project.spring.dalgen.model.response.FriendRequestDO;
 import com.project.spring.dalgen.service.FriendRequestDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @Qualifier("friendRequestDAO")
@@ -65,5 +69,16 @@ public class FriendRequestDAOImpl implements FriendRequestDAO {
 
         AssertUtil.isNotExpected(result, 0,
                 "update result", SpringErrorCodeEnum.UPDATE_FAILED);
+    }
+
+    @Override
+    public List<FriendRequestDO> query(FriendRequestDAORequest request) {
+        String statement = new StatementBuilder(DatabaseConst.TABLE_FRIEND_REQUEST, DatabaseConst.STATEMENT_SELECT)
+                .addSelectStatement(DatabaseConst.DATABASE_SELECT_ALL)
+                .addWhereStatement(DatabaseConst.APPEND_OPERATOR_AND, DatabaseConst.REQUESTER_ID, DatabaseConst.COMPARATOR_EQUAL)
+                .buildStatement();
+
+        return jdbcTemplate.query(statement,
+                ps -> ps.setString(1, request.getRequesterId()), new FriendRequestDORowMapper());
     }
 }

@@ -16,6 +16,7 @@ public class DatabaseConst implements Serializable {
     public static String COMPARATOR_LESSER = "<";
     public static String COMPARATOR_GREATER_THAN = ">=";
     public static String COMPARATOR_LESSER_THAN = "<=";
+    public static String COMPARATOR_IN = "in";
     public static String APPEND_OPERATOR_AND = "and";
     public static String APPEND_OPERATOR_OR = "or";
 

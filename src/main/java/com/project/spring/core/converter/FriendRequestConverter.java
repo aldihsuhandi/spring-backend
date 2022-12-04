@@ -1,9 +1,11 @@
 package com.project.spring.core.converter;
 
 import com.project.spring.common.model.request.friend.AddFriendInnerRequest;
+import com.project.spring.common.model.request.friend.QueryFriendRequestInnerRequest;
 import com.project.spring.common.model.request.friend.UpdateFriendRequestInnerRequest;
 import com.project.spring.common.model.viewobject.UserVO;
 import com.project.spring.core.model.request.friend.AcceptFriendRequest;
+import com.project.spring.core.model.request.friend.QueryFriendRequestListRequest;
 import com.project.spring.core.model.request.friend.RejectFriendRequest;
 
 public class FriendRequestConverter {
@@ -32,6 +34,13 @@ public class FriendRequestConverter {
         innerRequest.setReceiverId(request.getReceiverUsername());
         innerRequest.setAccepted(false);
         innerRequest.setDeleted(true);
+
+        return innerRequest;
+    }
+
+    public static QueryFriendRequestInnerRequest toInnerREquest(QueryFriendRequestListRequest request) {
+        QueryFriendRequestInnerRequest innerRequest = new QueryFriendRequestInnerRequest();
+        innerRequest.setRequesterId(request.getRequesterId());
 
         return innerRequest;
     }

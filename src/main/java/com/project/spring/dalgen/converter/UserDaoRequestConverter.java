@@ -3,10 +3,13 @@ package com.project.spring.dalgen.converter;
 import com.project.spring.common.model.request.user.UserCreateInnerRequest;
 import com.project.spring.common.model.request.user.UserDeleteInnerRequest;
 import com.project.spring.common.model.request.user.UserQueryInnerRequest;
+import com.project.spring.common.model.request.user.UserQueryListInnerRequest;
 import com.project.spring.common.model.request.user.UserUpdateInnerRequest;
 import com.project.spring.dalgen.model.request.UserDAORequest;
 
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class UserDaoRequestConverter {
     public static UserDAORequest toDAORequest(UserCreateInnerRequest request) {
@@ -29,6 +32,17 @@ public class UserDaoRequestConverter {
         request.setEmail(innerRequest.getEmail());
 
         return request;
+    }
+
+    public static List<UserDAORequest> toDAORequest(UserQueryListInnerRequest innerRequest) {
+        return innerRequest.getRequests().stream()
+                .map(request -> {
+                    UserDAORequest daoRequest = new UserDAORequest();
+                    daoRequest.setUserId(request.getUserId());
+                    daoRequest.setUsername(request.getUsername());
+                    daoRequest.setEmail(request.getEmail());
+                    return daoRequest;
+                }).collect(Collectors.toList());
     }
 
     public static UserDAORequest toDAORequest(UserUpdateInnerRequest innerRequest) {

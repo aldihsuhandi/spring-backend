@@ -15,7 +15,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Qualifier("userDAO")
@@ -102,8 +104,54 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public List<UserDO> queryUsersById(List<UserDAORequest> requests) {
-        return null;
+    public List<UserDO> queryUserListById(List<UserDAORequest> requests) {
+        String statement = new StatementBuilder(DatabaseConst.TABLE_USER, DatabaseConst.STATEMENT_SELECT)
+                .addWhereStatement(DatabaseConst.APPEND_OPERATOR_AND, DatabaseConst.USER_ID, DatabaseConst.COMPARATOR_IN)
+                .buildStatement();
+
+        String param = requests.stream().map(UserDAORequest::getUserId).collect(Collectors.joining(", "));
+
+        List<UserDO> userDOS = jdbcTemplate.query(statement, ps -> ps.setString(1, param), new UserDORowMapper());
+
+        if (userDOS == null || userDOS.isEmpty()) {
+            userDOS = new ArrayList<>();
+        }
+
+        return userDOS;
+    }
+
+    @Override
+    public List<UserDO> queryUserListByUsername(List<UserDAORequest> requests) {
+        String statement = new StatementBuilder(DatabaseConst.TABLE_USER, DatabaseConst.STATEMENT_SELECT)
+                .addWhereStatement(DatabaseConst.APPEND_OPERATOR_AND, DatabaseConst.USERNAME, DatabaseConst.COMPARATOR_IN)
+                .buildStatement();
+
+        String param = requests.stream().map(UserDAORequest::getUsername).collect(Collectors.joining(", "));
+
+        List<UserDO> userDOS = jdbcTemplate.query(statement, ps -> ps.setString(1, param), new UserDORowMapper());
+
+        if (userDOS == null || userDOS.isEmpty()) {
+            userDOS = new ArrayList<>();
+        }
+
+        return userDOS;
+    }
+
+    @Override
+    public List<UserDO> queryUserListByEmail(List<UserDAORequest> requests) {
+        String statement = new StatementBuilder(DatabaseConst.TABLE_USER, DatabaseConst.STATEMENT_SELECT)
+                .addWhereStatement(DatabaseConst.APPEND_OPERATOR_AND, DatabaseConst.EMAIL, DatabaseConst.COMPARATOR_IN)
+                .buildStatement();
+
+        String param = requests.stream().map(UserDAORequest::getEmail).collect(Collectors.joining(", "));
+
+        List<UserDO> userDOS = jdbcTemplate.query(statement, ps -> ps.setString(1, param), new UserDORowMapper());
+
+        if (userDOS == null || userDOS.isEmpty()) {
+            userDOS = new ArrayList<>();
+        }
+
+        return userDOS;
     }
 
     @Override

@@ -6,6 +6,7 @@ import com.project.spring.common.model.exception.SpringException;
 import com.project.spring.common.model.request.user.UserCreateInnerRequest;
 import com.project.spring.common.model.request.user.UserDeleteInnerRequest;
 import com.project.spring.common.model.request.user.UserQueryInnerRequest;
+import com.project.spring.common.model.request.user.UserQueryListInnerRequest;
 import com.project.spring.common.model.request.user.UserUpdateInnerRequest;
 import com.project.spring.common.model.viewobject.UserVO;
 import com.project.spring.common.service.UserService;
@@ -19,7 +20,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @Qualifier("userService")
@@ -70,6 +73,33 @@ public class UserServiceImpl implements UserService {
         AssertUtil.isNotNull(userDO, "user", SpringErrorCodeEnum.USER_NOT_FOUND);
 
         return UserVOConverter.toViewObject(userDO);
+    }
+
+    @Override
+    public List<UserVO> queryListById(UserQueryListInnerRequest request) {
+        List<UserDAORequest> daoRequests = UserDaoRequestConverter.toDAORequest(request);
+
+        List<UserDO> userDOS = userDAO.queryUserListById(daoRequests);
+
+        return userDOS.stream().map(UserVOConverter::toViewObject).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<UserVO> queryListByEmail(UserQueryListInnerRequest request) {
+        List<UserDAORequest> daoRequests = UserDaoRequestConverter.toDAORequest(request);
+
+        List<UserDO> userDOS = userDAO.queryUserListByEmail(daoRequests);
+
+        return userDOS.stream().map(UserVOConverter::toViewObject).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<UserVO> queryListByUsername(UserQueryListInnerRequest request) {
+        List<UserDAORequest> daoRequests = UserDaoRequestConverter.toDAORequest(request);
+
+        List<UserDO> userDOS = userDAO.queryUserListByUsername(daoRequests);
+
+        return userDOS.stream().map(UserVOConverter::toViewObject).collect(Collectors.toList());
     }
 
     @Override

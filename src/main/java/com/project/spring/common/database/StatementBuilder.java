@@ -124,7 +124,11 @@ public class StatementBuilder {
                 statementBuilder.append(String.format(" %s ", appendOperator));
             }
 
-            statementBuilder.append(String.format("%s %s ?", key, comparator));
+            if (DatabaseConst.COMPARATOR_IN.equals(comparator)) {
+                statementBuilder.append(String.format("%s %s (?)", key, comparator));
+            } else {
+                statementBuilder.append(String.format("%s %s ?", key, comparator));
+            }
             isFirst = false;
         }
     }

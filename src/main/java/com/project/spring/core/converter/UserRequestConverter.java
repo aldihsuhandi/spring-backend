@@ -5,6 +5,7 @@ import com.project.spring.common.model.context.UserUpdateContext;
 import com.project.spring.common.model.request.user.UserCreateInnerRequest;
 import com.project.spring.common.model.request.user.UserDeleteInnerRequest;
 import com.project.spring.common.model.request.user.UserQueryInnerRequest;
+import com.project.spring.common.model.request.user.UserQueryListInnerRequest;
 import com.project.spring.common.model.request.user.UserUpdateInnerRequest;
 import com.project.spring.common.model.viewobject.UserVO;
 import com.project.spring.common.util.StringUtil;
@@ -14,6 +15,8 @@ import com.project.spring.core.model.request.user.UserQueryRequest;
 import com.project.spring.core.model.request.user.UserUpdateRequest;
 
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class UserRequestConverter {
     public static UserCreateInnerRequest toInnerRequest(UserCreateRequest request) {
@@ -80,6 +83,18 @@ public class UserRequestConverter {
         innerRequest.setUserId(userVO.getUserId());
         innerRequest.setActive(false);
         innerRequest.setGmtModified(new Date());
+
+        return innerRequest;
+    }
+
+    public static UserQueryListInnerRequest toInnerRequest(List<String> values, String key) {
+        UserQueryListInnerRequest innerRequest = new UserQueryListInnerRequest();
+        innerRequest.setRequests(
+                values.stream().map(value -> {
+                    UserQueryInnerRequest request = toInnerRequest(value, key);
+                    return request;
+                }).collect(Collectors.toList())
+        );
 
         return innerRequest;
     }

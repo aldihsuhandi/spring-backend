@@ -6,7 +6,6 @@ import com.project.spring.common.model.request.user.UserDeleteInnerRequest;
 import com.project.spring.common.model.request.user.UserQueryInnerRequest;
 import com.project.spring.common.model.request.user.UserQueryListInnerRequest;
 import com.project.spring.common.model.request.user.UserUpdateCacheInnerRequest;
-import com.project.spring.common.model.request.user.UserQueryListInnerRequest;
 import com.project.spring.common.model.request.user.UserUpdateInnerRequest;
 import com.project.spring.common.model.viewobject.UserVO;
 
@@ -21,7 +20,7 @@ public interface UserService {
 
     UserVO queryByEmail(UserQueryInnerRequest request) throws SpringException;
 
-    List<UserVO> queryListById(UserQueryListInnerRequest request);
+    List<UserVO> queryListById(UserQueryListInnerRequest request) throws SpringException;
 
     List<UserVO> queryListByEmail(UserQueryListInnerRequest request);
 

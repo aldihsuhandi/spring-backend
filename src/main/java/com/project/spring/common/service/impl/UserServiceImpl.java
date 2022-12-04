@@ -24,6 +24,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -106,29 +107,94 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserVO> queryListById(UserQueryListInnerRequest request) {
+
+        List<UserVO> userVOS = new ArrayList<>();
+
+        for (UserQueryInnerRequest innerRequest : request.getRequests()) {
+            if (!(userCache.isExist(innerRequest.getUserId(), CommonConst.USER_ID) && innerRequest.isUseCache())) {
+                continue;
+            }
+
+            try {
+                userVOS.add(userCache.fetch(innerRequest.getUserId(), CommonConst.USER_ID));
+                request.getRequests().remove(innerRequest);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
         List<UserDAORequest> daoRequests = UserDaoRequestConverter.toDAORequest(request);
 
         List<UserDO> userDOS = userDAO.queryUserListById(daoRequests);
 
-        return userDOS.stream().map(UserVOConverter::toViewObject).collect(Collectors.toList());
+        userVOS.addAll(userDOS.stream().map(userDO -> {
+            UserVO userVO = UserVOConverter.toViewObject(userDO);
+            userCache.put(userVO);
+
+            return userVO;
+        }).collect(Collectors.toList()));
+
+        return userVOS;
     }
 
     @Override
     public List<UserVO> queryListByEmail(UserQueryListInnerRequest request) {
+        List<UserVO> userVOS = new ArrayList<>();
+        for (UserQueryInnerRequest innerRequest : request.getRequests()) {
+            if (!(userCache.isExist(innerRequest.getEmail(), CommonConst.EMAIL) && innerRequest.isUseCache())) {
+                continue;
+            }
+
+            try {
+                userVOS.add(userCache.fetch(innerRequest.getEmail(), CommonConst.EMAIL));
+                request.getRequests().remove(innerRequest);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
         List<UserDAORequest> daoRequests = UserDaoRequestConverter.toDAORequest(request);
 
         List<UserDO> userDOS = userDAO.queryUserListByEmail(daoRequests);
 
-        return userDOS.stream().map(UserVOConverter::toViewObject).collect(Collectors.toList());
+        userVOS.addAll(userDOS.stream().map(userDO -> {
+            UserVO userVO = UserVOConverter.toViewObject(userDO);
+            userCache.put(userVO);
+
+            return userVO;
+        }).collect(Collectors.toList()));
+
+        return userVOS;
     }
 
     @Override
     public List<UserVO> queryListByUsername(UserQueryListInnerRequest request) {
+        List<UserVO> userVOS = new ArrayList<>();
+        for (UserQueryInnerRequest innerRequest : request.getRequests()) {
+            if (!(userCache.isExist(innerRequest.getUsername(), CommonConst.USERNAME) && innerRequest.isUseCache())) {
+                continue;
+            }
+
+            try {
+                userVOS.add(userCache.fetch(innerRequest.getUsername(), CommonConst.USERNAME));
+                request.getRequests().remove(innerRequest);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
         List<UserDAORequest> daoRequests = UserDaoRequestConverter.toDAORequest(request);
 
         List<UserDO> userDOS = userDAO.queryUserListByUsername(daoRequests);
 
-        return userDOS.stream().map(UserVOConverter::toViewObject).collect(Collectors.toList());
+        userVOS.addAll(userDOS.stream().map(userDO -> {
+            UserVO userVO = UserVOConverter.toViewObject(userDO);
+            userCache.put(userVO);
+
+            return userVO;
+        }).collect(Collectors.toList()));
+
+        return userVOS;
     }
 
     @Override

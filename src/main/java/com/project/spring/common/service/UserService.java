@@ -4,6 +4,7 @@ import com.project.spring.common.model.exception.SpringException;
 import com.project.spring.common.model.request.user.UserCreateInnerRequest;
 import com.project.spring.common.model.request.user.UserDeleteInnerRequest;
 import com.project.spring.common.model.request.user.UserQueryInnerRequest;
+import com.project.spring.common.model.request.user.UserQueryListInnerRequest;
 import com.project.spring.common.model.request.user.UserUpdateCacheInnerRequest;
 import com.project.spring.common.model.request.user.UserQueryListInnerRequest;
 import com.project.spring.common.model.request.user.UserUpdateInnerRequest;

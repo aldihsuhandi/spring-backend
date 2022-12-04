@@ -32,7 +32,7 @@ public class SessionLoginProcessor implements BaseProcessor {
         SessionLoginRequest sessionLoginRequest = (SessionLoginRequest) request;
         SessionLoginResult sessionLoginResult = (SessionLoginResult) result;
         UserVO userVO = userService.queryByUsername(UserRequestConverter.
-                toInnerRequest(sessionLoginRequest.getUsername(), CommonConst.USERNAME));
+                toInnerRequest(sessionLoginRequest.getUsername(), CommonConst.USERNAME, true));
 
         String uuid = sessionService.generateUUID();
         SessionLoginInnerRequest loginInnerRequest = SessionRequestConverter.toInnerRequest(userVO,

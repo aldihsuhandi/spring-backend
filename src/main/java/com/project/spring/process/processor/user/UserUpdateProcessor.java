@@ -3,6 +3,7 @@ package com.project.spring.process.processor.user;
 import com.project.spring.common.constant.CommonConst;
 import com.project.spring.common.model.context.UserUpdateContext;
 import com.project.spring.common.model.exception.SpringException;
+import com.project.spring.common.model.request.user.UserUpdateCacheInnerRequest;
 import com.project.spring.common.model.request.user.UserUpdateInnerRequest;
 import com.project.spring.common.model.viewobject.UserVO;
 import com.project.spring.common.service.UserService;
@@ -25,7 +26,7 @@ public class UserUpdateProcessor implements BaseProcessor {
     public void doProcess(BaseResult result, BaseRequest request) throws SpringException {
         UserUpdateRequest updateRequest = (UserUpdateRequest) request;
         UserVO userVO = userService.queryByEmail(UserRequestConverter.
-                toInnerRequest(updateRequest.getEmail(), CommonConst.EMAIL));
+                toInnerRequest(updateRequest.getEmail(), CommonConst.EMAIL, true));
 
         UserUpdateContext updateContext = updateRequest.getUpdateContext();
 
@@ -37,5 +38,9 @@ public class UserUpdateProcessor implements BaseProcessor {
         UserUpdateInnerRequest innerRequest =
                 UserRequestConverter.toInnerRequest(updateRequest, userVO);
         userService.update(innerRequest);
+
+        UserUpdateCacheInnerRequest updateCacheRequest = UserRequestConverter.
+                toInnerRequest(updateRequest.getEmail(), CommonConst.EMAIL);
+        userService.updateCache(updateCacheRequest);
     }
 }

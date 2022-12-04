@@ -4,6 +4,7 @@ import com.project.spring.common.model.exception.SpringException;
 import com.project.spring.common.model.request.user.UserCreateInnerRequest;
 import com.project.spring.common.model.request.user.UserDeleteInnerRequest;
 import com.project.spring.common.model.request.user.UserQueryInnerRequest;
+import com.project.spring.common.model.request.user.UserUpdateCacheInnerRequest;
 import com.project.spring.common.model.request.user.UserQueryListInnerRequest;
 import com.project.spring.common.model.request.user.UserUpdateInnerRequest;
 import com.project.spring.common.model.viewobject.UserVO;
@@ -28,6 +29,8 @@ public interface UserService {
     void update(UserUpdateInnerRequest request) throws SpringException;
 
     void delete(UserDeleteInnerRequest request) throws SpringException;
+
+    void updateCache(UserUpdateCacheInnerRequest request) throws SpringException;
 
     String encryptPassword(String password);
 }

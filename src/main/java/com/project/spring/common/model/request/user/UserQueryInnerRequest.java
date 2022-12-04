@@ -10,4 +10,5 @@ public class UserQueryInnerRequest extends BaseInnerRequest {
     private String userId;
     private String email;
     private String username;
+    private boolean useCache;
 }

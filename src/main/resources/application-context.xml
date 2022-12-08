@@ -23,6 +23,8 @@
     <bean id="rejectFriendProcessor" class="com.project.spring.process.processor.friend.RejectFriendProcessor"/>
     <bean id="queryFriendRequestProcessor"
           class="com.project.spring.process.processor.friend.QueryFriendRequestProcessor"/>
+    <bean id="queryFriendProcessor"
+          class="com.project.spring.process.processor.friend.QueryFriendProcessor"/>
 
     <!--validator-->
     <!--user-->
@@ -45,6 +47,8 @@
     <bean id="rejectFriendValidator" class="com.project.spring.core.validator.impl.friend.RejectFriendValidator"/>
     <bean id="queryFriendRequestValidator"
           class="com.project.spring.core.validator.impl.friend.QueryFriendRequestValidator"/>
+    <bean id="queryFriendValidator"
+          class="com.project.spring.core.validator.impl.friend.QueryFriendValidator"/>
 
     <bean id="facadeProcess" class="com.project.spring.process.callback.ProcessFacade">
         <property name="processors">
@@ -84,6 +88,9 @@
                 </entry>
                 <entry key="QUERY_FRIEND_REQUEST">
                     <ref bean="queryFriendRequestProcessor"/>
+                </entry>
+                <entry key="QUERY_FRIEND">
+                    <ref bean="queryRequestProcessor"/>
                 </entry>
             </map>
         </property>
@@ -125,6 +132,9 @@
                 </entry>
                 <entry key="QUERY_FRIEND_REQUEST">
                     <ref bean="queryFriendRequestValidator"/>
+                </entry>
+                <entry key="QUERY_FRIEND">
+                    <ref bean="queryFriendValidator"/>
                 </entry>
             </map>
         </property>

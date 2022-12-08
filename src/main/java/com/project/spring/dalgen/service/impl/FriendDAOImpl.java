@@ -5,12 +5,16 @@ import com.project.spring.common.database.StatementBuilder;
 import com.project.spring.common.model.enumeration.SpringErrorCodeEnum;
 import com.project.spring.common.model.exception.SpringException;
 import com.project.spring.common.util.AssertUtil;
+import com.project.spring.dalgen.model.mapper.FriendDORowMapper;
 import com.project.spring.dalgen.model.request.FriendDAORequest;
+import com.project.spring.dalgen.model.response.FriendDO;
 import com.project.spring.dalgen.service.FriendDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @Qualifier("friendDAO")
@@ -41,5 +45,16 @@ public class FriendDAOImpl implements FriendDAO {
 
         AssertUtil.isNotExpected(result, 0,
                 "insert result", SpringErrorCodeEnum.INSERT_FAILED);
+    }
+
+    @Override
+    public List<FriendDO> query(FriendDAORequest request) {
+        String statement = new StatementBuilder(DatabaseConst.TABLE_FRIEND_LIST, DatabaseConst.STATEMENT_SELECT)
+                .addValueStatement(DatabaseConst.FRIEND_ID)
+                .addWhereStatement(DatabaseConst.APPEND_OPERATOR_AND, DatabaseConst.USER_ID, DatabaseConst.COMPARATOR_EQUAL)
+                .buildStatement();
+
+        return jdbcTemplate.query(statement, ps ->
+                ps.setString(1, request.getUserId()), new FriendDORowMapper());
     }
 }

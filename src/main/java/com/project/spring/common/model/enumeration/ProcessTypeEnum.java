@@ -26,7 +26,9 @@ public enum ProcessTypeEnum {
 
     REJECT_FRIEND("REJECT_FRIEND", "7100011", "rejectFriendProcessor", "rejectFriendValidator"),
 
-    QUERY_FRIEND_REQUEST("QUERY_FRIEND_REQUEST", "7100012", "queryFriendRequestProcessor", "queryFriendRequestValidator");
+    QUERY_FRIEND_REQUEST("QUERY_FRIEND_REQUEST", "7100012", "queryFriendRequestProcessor", "queryFriendRequestValidator"),
+
+    QUERY_FRIEND("QUERY_FRIEND", "7100013", "queryFriendProcessor", "queryFriendValidator");
 
     private final String processName;
     private final String processId;

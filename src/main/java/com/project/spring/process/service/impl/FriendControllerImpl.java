@@ -3,11 +3,13 @@ package com.project.spring.process.service.impl;
 import com.project.spring.common.model.enumeration.ProcessTypeEnum;
 import com.project.spring.core.model.request.friend.AcceptFriendRequest;
 import com.project.spring.core.model.request.friend.AddFriendRequest;
+import com.project.spring.core.model.request.friend.QueryFriendListRequest;
 import com.project.spring.core.model.request.friend.QueryFriendRequestListRequest;
 import com.project.spring.core.model.request.friend.RejectFriendRequest;
 import com.project.spring.core.model.result.BaseResult;
 import com.project.spring.core.model.result.friend.AcceptFriendResult;
 import com.project.spring.core.model.result.friend.AddFriendResult;
+import com.project.spring.core.model.result.friend.QueryFriendListResult;
 import com.project.spring.core.model.result.friend.QueryFriendRequestListResult;
 import com.project.spring.core.model.result.friend.RejectFriendResult;
 import com.project.spring.core.service.FriendController;
@@ -56,7 +58,7 @@ public class FriendControllerImpl extends ProcessFacade implements FriendControl
 
     @Override
     @PostMapping("/reject")
-    public RejectFriendResult rejectFriend(RejectFriendRequest request) {
+    public RejectFriendResult rejectFriend(@RequestBody RejectFriendRequest request) {
         return (RejectFriendResult) ProcessCallbackSupport.process(request, ProcessTypeEnum.REJECT_FRIEND, new ProcessCallback() {
             @Override
             public BaseResult initResult() {
@@ -71,11 +73,28 @@ public class FriendControllerImpl extends ProcessFacade implements FriendControl
     }
 
     @Override
-    public QueryFriendRequestListResult queryFriendRequest(QueryFriendRequestListRequest request) {
+    @PostMapping("/request/query")
+    public QueryFriendRequestListResult queryFriendRequest(@RequestBody QueryFriendRequestListRequest request) {
         return (QueryFriendRequestListResult) ProcessCallbackSupport.process(request, ProcessTypeEnum.QUERY_FRIEND_REQUEST, new ProcessCallback() {
             @Override
             public BaseResult initResult() {
                 return new QueryFriendRequestListResult();
+            }
+
+            @Override
+            public void process(ProcessTypeEnum processType, BaseResult result) throws Exception {
+                doProcess(request, result, processType);
+            }
+        });
+    }
+
+    @Override
+    @PostMapping("/query")
+    public QueryFriendListResult queryFriend(@RequestBody QueryFriendListRequest request) {
+        return (QueryFriendListResult) ProcessCallbackSupport.process(request, ProcessTypeEnum.QUERY_FRIEND, new ProcessCallback() {
+            @Override
+            public BaseResult initResult() {
+                return new QueryFriendListResult();
             }
 
             @Override

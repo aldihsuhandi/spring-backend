@@ -7,7 +7,6 @@ import com.project.spring.common.model.request.user.UserDeleteInnerRequest;
 import com.project.spring.common.model.request.user.UserQueryInnerRequest;
 import com.project.spring.common.model.request.user.UserQueryListInnerRequest;
 import com.project.spring.common.model.request.user.UserUpdateCacheInnerRequest;
-import com.project.spring.common.model.request.user.UserQueryListInnerRequest;
 import com.project.spring.common.model.request.user.UserUpdateInnerRequest;
 import com.project.spring.common.model.viewobject.UserVO;
 import com.project.spring.common.util.StringUtil;
